@@ -17,13 +17,4 @@ class HomeController
     {
         require __DIR__ . '/../views/home/about.php';
     }
-
-    public function logout()
-    {
-        $_SESSION = array();
-        $_SESSION["loggedin"] = false;
-        session_destroy();
-        // Redirecting To Home Page
-        header("Location: /login");
-    }
 }

@@ -1,6 +1,6 @@
 <?php
-if (isset($_POST["submit"])) {
-    echo "post";
+if ($_POST) {
+    print_r($_POST);
 }
 ?>
 <!DOCTYPE html>

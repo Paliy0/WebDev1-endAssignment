@@ -6,10 +6,9 @@ class Product
     private string $name;
     private string $description;
     private int $storeId;
-    private string $storeName;
     private float $price;
     private int $quantity;
-    private string $img;
+    private $img;
 
 
     // Getters and setters generated using https://docs.devsense.com/en/vscode/editor/code-actions
@@ -76,7 +75,6 @@ class Product
         return $this->storeId;
     }
 
-
     /**
      * @param int $storeId 
      * @return self
@@ -84,25 +82,6 @@ class Product
     public function setStoreId(int $storeId): self
     {
         $this->storeId = $storeId;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStoreName(): string
-    {
-        return $this->storeName;
-    }
-
-
-    /**
-     * @param string $storeName 
-     * @return self
-     */
-    public function setStoreName(string $storeName): self
-    {
-        $this->storeName = $storeName;
         return $this;
     }
 
@@ -142,21 +121,12 @@ class Product
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getImg(): string
-    {
-        return $this->img;
-    }
-
-    /**
-     * @param string $img 
-     * @return self
-     */
-    public function setImg(string $img): self
+    public function setImg($img)
     {
         $this->img = $img;
-        return $this;
+    }
+    public function getImg()
+    {
+        return $this->img;
     }
 }

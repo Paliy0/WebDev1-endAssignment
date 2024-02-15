@@ -16,15 +16,20 @@ class LoginController
 
         require __DIR__ . '/../views/login/index.php';
     }
+
     public function logout()
     {
         session_start();
-        require __DIR__ . '/../views/login/logout.php';
+        session_destroy();
+        //header("Location: /login");
     }
-
 
     public function login()
     {
+
+
+
+        echo 'Login controller method called';
 
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -41,10 +46,8 @@ class LoginController
         // Start a session and redirect the user to the dashboard
         session_start();
         $_SESSION['user'] = $user;
-        $_SESSION['logged_in'] = true;
-
         header('Location: /home');
-        //require __DIR__ . '/../views/login/index.php';
+        require __DIR__ . '/../views/login/index.php';
         /*
         $username = $_POST['username'];
         $password = $_POST['password'];
