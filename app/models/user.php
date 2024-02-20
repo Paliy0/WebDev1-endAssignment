@@ -1,66 +1,81 @@
 <?php
+
+namespace MyApp\Models;
+
 class User
 {
-
     private int $id;
-    private string $username;
+    private string $email;
     private string $password;
-    //private int $storeId;
-    //private int $customerId;
+    private string $role; // Consider using ENUM in MySQL, but PHP will treat it as a string
+    private string $created_at;
+    private string $updated_at;
 
-    // Getters and setters generated using https://docs.devsense.com/en/vscode/editor/code-actions
+    // Getters and setters
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id 
-     * @return self
-     */
     public function setId(int $id): self
     {
         $this->id = $id;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getUsername(): string
+    public function getEmail(): string
     {
-        return $this->username;
+        return $this->email;
     }
 
-    /**
-     * @param string $username 
-     * @return self
-     */
-    public function setUsername(string $username): self
+    public function setEmail(string $email): self
     {
-        $this->username = $username;
+        $this->email = $email;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * @param string $password 
-     * @return self
-     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
+        return $this;
+    }
+
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
+        return $this;
+    }
+
+    public function getCreatedAt(): string
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(string $created_at): self
+    {
+        $this->created_at = $created_at;
+        return $this;
+    }
+
+    public function getUpdatedAt(): string
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(string $updated_at): self
+    {
+        $this->updated_at = $updated_at;
         return $this;
     }
 }

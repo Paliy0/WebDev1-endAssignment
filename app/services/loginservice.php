@@ -1,5 +1,6 @@
 <?php
-require __DIR__ . '/../repositories/loginrepository.php';
+
+namespace App\Services;
 
 class LoginService
 {

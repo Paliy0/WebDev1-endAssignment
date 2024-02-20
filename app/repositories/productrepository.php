@@ -1,9 +1,13 @@
 <?php
-require __DIR__ . '/repository.php';
-require __DIR__ . '/../models/product.php';
+
+namespace App\Repository;
+
+use PDO;
+use PDOException;
 
 class ProductRepository extends Repository
 {
+
     function getAll()
     {
         try {
@@ -19,16 +23,23 @@ class ProductRepository extends Repository
         }
     }
 
-    function create(Product $product)
+    function create($product)
     {
         try {
-            $stmt = $this->connection->prepare("INSERT INTO `product` (`id`, `name`, `description`, `price`, `img`, `storeId`, `quantity`) VALUES (?, ?, ?, ?, ?, ?, ?");
-            $stmt->bind_param("ssdsii", $product->getName(), $product->getDesc(), $product->getPrice(), $product->getImg(), $product->getStoreId(), $product->getQuantity());
+            $stmt = $this->connection->prepare("INSERT INTO product (id, store_id, name, description, price, stock, created_at, updated_at) 
+            VALUES (:id, :store_id, :name, :description, :price, :stock, :created_at, :updated_at)");
 
-            $stmt->execute();
-            $stmt->close();
-
-            return $products;
+            $results = $stmt->execute([
+                ':id' => $product->id,
+                ':store_id' => $product->shop_id,
+                ':name' => $product->name,
+                ':description' => $product->description,
+                ':price' => $product->price,
+                ':stock' => $product->stock,
+                ':created_at' => $product->created_at,
+                ':updated_at' => $product->updated_at,
+            ]);
+            return $results;
         } catch (PDOException $e) {
             echo $e;
         }

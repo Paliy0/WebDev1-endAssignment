@@ -1,9 +1,15 @@
 <?php
-require __DIR__ . '/repository.php';
 
-class LoginRepository extends Repository {
+namespace App\Repository;
 
-    function getAll() {
+use PDO;
+use PDOException;
+
+class LoginRepository extends Repository
+{
+
+    function getAll()
+    {
         //
     }
 }

@@ -1,10 +1,7 @@
 <?php
-require __DIR__ . '/../routers/patternrouter.php';
-
-
+require '../../autoload.php';
 
 $uri = trim($_SERVER['REQUEST_URI'], '/');
 
-$router = new PatternRouter();
-//$router->get('/logout', 'LoginController@logout');
+$router = new App\PatternRouter();
 $router->route($uri);

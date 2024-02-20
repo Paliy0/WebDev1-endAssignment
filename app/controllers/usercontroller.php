@@ -1,5 +1,6 @@
 <?php
-require __DIR__ . '/../services/userservice.php';
+
+namespace App\Controllers;
 
 class UserController
 {
@@ -7,7 +8,7 @@ class UserController
 
     function __construct()
     {
-        $this->userService = new UserService();
+        $this->userService = new \App\Services\UserService();
     }
 
     public function index()

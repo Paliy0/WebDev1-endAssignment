@@ -1,5 +1,6 @@
 <?php
-require __DIR__ . '/../services/productservice.php';
+
+namespace App\Controllers;
 
 class HomeController
 {
@@ -7,7 +8,7 @@ class HomeController
 
     public function index()
     {
-        $this->productService = new ProductService();
+        $this->productService = new \App\Services\ProductService();
 
         $products = $this->productService->getAll();
         require __DIR__ . '/../views/home/index.php';

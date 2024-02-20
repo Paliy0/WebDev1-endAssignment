@@ -1,15 +1,18 @@
 <?php
 
-class Product
+class Shop
 {
     private int $id;
-    private int $shop_id;
+    private int $user_id;
     private string $name;
     private string $description;
-    private float $price;
-    private int $stock;
+    private string $address;
+    private string $contact_email;
+    private string $contact_number;
     private string $created_at;
     private string $updated_at;
+
+    // Getters and setters
 
     public function getId(): int
     {
@@ -22,14 +25,14 @@ class Product
         return $this;
     }
 
-    public function getStoreId(): int
+    public function getOwnerId(): int
     {
-        return $this->shop_id;
+        return $this->user_id;
     }
 
-    public function setStoreId(int $shop_id): self
+    public function setOwnerId(int $user_id): self
     {
-        $this->shop_id = $shop_id;
+        $this->user_id = $user_id;
         return $this;
     }
 
@@ -55,25 +58,36 @@ class Product
         return $this;
     }
 
-    public function getPrice(): float
+    public function getAddress(): string
     {
-        return $this->price;
+        return $this->address;
     }
 
-    public function setPrice(float $price): self
+    public function setAddress(string $address): self
     {
-        $this->price = $price;
+        $this->address = $address;
         return $this;
     }
 
-    public function getStock(): int
+    public function getContactEmail(): string
     {
-        return $this->stock;
+        return $this->contact_email;
     }
 
-    public function setStock(int $stock): self
+    public function setContactEmail(string $contact_email): self
     {
-        $this->stock = $stock;
+        $this->contact_email = $contact_email;
+        return $this;
+    }
+
+    public function getContactNumber(): string
+    {
+        return $this->contact_number;
+    }
+
+    public function setContactNumber(string $contact_number): self
+    {
+        $this->contact_number = $contact_number;
         return $this;
     }
 

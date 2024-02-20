@@ -1,21 +1,24 @@
 <?php
-require __DIR__ . '/../repositories/userrepository.php';
+
+namespace App\Services;
+
+use Exception;
+
 class UserService
 {
     private $userRepository;
 
     public function __construct()
     {
-        $this->userRepository = new UserRepository();
+        $this->userRepository = new \App\Repository\UserRepository();
     }
 
     public function getAll()
     {
-        $repository = new UserRepository();
-        return $repository->getAll();
+        return $this->userRepository->getAll();
     }
 
-    public function validate(User $user)
+    public function validate($user)
     {
         $errors = array();
 
@@ -46,7 +49,7 @@ class UserService
         return $errors;
     }
 
-    public function register(User $user)
+    public function register($user)
     {
         // Hash the password before saving it to the database
         $password = $user->getPassword();

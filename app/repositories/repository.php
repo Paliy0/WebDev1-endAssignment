@@ -1,5 +1,10 @@
 <?php
 
+namespace App\Repository;
+
+use PDO;
+use PDOException;
+
 class Repository
 {
     protected $connection;
