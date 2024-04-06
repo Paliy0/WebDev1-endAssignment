@@ -18,11 +18,11 @@ include __DIR__ . '/../header.php';
             <h4 class="mt-4 mb-5"><strong>Products</strong></h4>
 
             <div class="row">
-                <div class="col-lg-4 col-md-12 mb-4">
+                <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card">
                         <?php foreach ($products as $product) { ?>
                             <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
-                                <img src="Location: img/products/food.jpg" class=" w-100" />
+                                <img src="https://res.cloudinary.com/paliyo/image/upload/v1708684195/PHPShop/sunglasses_product.jpg" class=" w-100" />
                                 <!--
                                 <a href="#!">
                                     
@@ -42,7 +42,7 @@ include __DIR__ . '/../header.php';
                                     <h5 class="card-title mb-3"><?php echo $product->getName(); ?></h5>
                                 </a>
                                 <a href="" class="text-reset">
-                                    <p><?php echo $product->getDesc(); ?></p>
+                                    <p><?php echo $product->getDescription(); ?></p>
                                 </a>
                                 <h6 class="mb-3">$<?php echo $product->getPrice(); ?></h6>
                             </div>
@@ -50,7 +50,7 @@ include __DIR__ . '/../header.php';
                 <?php } ?>
                 </div>
 
-                <div class="col-lg-4 col-md-6 mb-4">
+                <!-- <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card">
                         <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
                             <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp" class="w-100" />
@@ -193,7 +193,7 @@ include __DIR__ . '/../header.php';
                             </h6>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </main>

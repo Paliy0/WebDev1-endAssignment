@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Models;
+
 class Product
 {
     private int $id;
@@ -8,6 +10,7 @@ class Product
     private string $description;
     private float $price;
     private int $stock;
+    private string $img;
     private string $created_at;
     private string $updated_at;
 
@@ -74,6 +77,17 @@ class Product
     public function setStock(int $stock): self
     {
         $this->stock = $stock;
+        return $this;
+    }
+
+    public function getImg(): string
+    {
+        return $this->img;
+    }
+
+    public function setImg(int $img): self
+    {
+        $this->img = $img;
         return $this;
     }
 

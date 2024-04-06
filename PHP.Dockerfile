@@ -1,7 +1,12 @@
 FROM php:fpm
 
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libzip-dev \
+    && docker-php-ext-install zip
+
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Latest release
-COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
-# RUN pecl install xdebug && docker-php-ext-enable xdebug
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

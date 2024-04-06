@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repositories;
 
 use PDO;
 use PDOException;
@@ -11,12 +11,11 @@ class ProductRepository extends Repository
     function getAll()
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM product");
+            $stmt = $this->connection->prepare("SELECT * FROM products");
             $stmt->execute();
 
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Product');
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'App\\Models\\Product');
             $products = $stmt->fetchAll();
-
             return $products;
         } catch (PDOException $e) {
             echo $e;

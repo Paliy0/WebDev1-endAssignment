@@ -7,7 +7,7 @@ class ProductController
 
     function __construct()
     {
-        $this->productService = new ProductService();
+        $this->productService = new \App\Services\ProductService();
     }
 
     public function index()
