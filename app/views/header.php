@@ -39,7 +39,7 @@
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                 <li><a class="dropdown-item" href="/user/profile">My Profile</a></li>
                 <li><a class="dropdown-item" href="#"> action</a></li>
-                <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+                <li><a class="dropdown-item" href="/login">Log Out</a></li>
               </ul>
             </li>
           </ul>

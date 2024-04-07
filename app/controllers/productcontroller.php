@@ -1,5 +1,6 @@
 <?php
-require __DIR__ . '/../services/productservice.php';
+
+namespace App\Controllers;
 
 class ProductController
 {
@@ -24,9 +25,9 @@ class ProductController
             print_r($_FILES);
 
             if (isset($_POST['name']) && isset($_POST['price']) && isset($_POST['quantity']) && isset($_POST['desc']) && isset($_FILES['img'])) {
-                $product = new Product();
+                $product = new \App\Models\Product();
                 $product->setName($_POST['name']);
-                $product->setDesc($_POST['desc']);
+                $product->setDescription($_POST['desc']);
                 $product->setPrice($_POST['price']);
 
                 $image = $_FILES['image'];
@@ -34,7 +35,7 @@ class ProductController
                 $uploaded_image = $upload_dir . basename($image['name']);
                 move_uploaded_file($image['tmp_name'], $uploaded_image);
                 $product->setImg($uploaded_image);
-                $productService = new ProductService();
+                $productService = new \App\Services\ProductService();
                 $productService->create($product);
             }
         }

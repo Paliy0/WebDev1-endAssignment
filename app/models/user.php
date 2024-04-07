@@ -1,13 +1,13 @@
 <?php
 
-namespace MyApp\Models;
+namespace App\Models;
 
 class User
 {
     private int $id;
     private string $email;
     private string $password;
-    private string $role; // Consider using ENUM in MySQL, but PHP will treat it as a string
+    private string $role;
     private string $created_at;
     private string $updated_at;
 

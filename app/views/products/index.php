@@ -1,4 +1,5 @@
 <?php
+
 include(__DIR__ . "/../header.php");
 ?>
 <br />
@@ -21,7 +22,7 @@ include(__DIR__ . "/../header.php");
                         <tr class="">
                             <td scope="row"><?php echo $product->getId(); ?></td>
                             <td><?php echo $product->getName(); ?></td>
-                            <td><?php echo $product->getDesc(); ?></td>
+                            <td><?php echo $product->getDescription(); ?></td>
                             <td>
                                 <input name="editbtn" id="editbtn" class="btn btn-info" type="button" value="Edit" onclick="location='product/edit'">
                                 <input name="deletebtn" id="deletebtn" class="btn btn-danger" type="button" value="Delete" onclick="location='product/delete'">

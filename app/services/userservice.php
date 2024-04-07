@@ -2,15 +2,19 @@
 
 namespace App\Services;
 
+use App\Models\User;
+use App\Repositories\UserRepository;
 use Exception;
 
 class UserService
 {
+    const LOGIN_SUCCESS = 1;
+    const LOGIN_INVALID_CREDENTIALS = 2;
     private $userRepository;
 
     public function __construct()
     {
-        $this->userRepository = new \App\Repository\UserRepository();
+        $this->userRepository = new UserRepository();
     }
 
     public function getAll()
@@ -18,38 +22,16 @@ class UserService
         return $this->userRepository->getAll();
     }
 
-    public function validate($user)
+    public function validateEmail($email)
     {
-        $errors = array();
+        $user = $this->userRepository->getByEmail($email);
 
-        if (empty($user->getUsername())) {
-            $errors['username'] = 'Username is required';
+        if (empty($user)) {
+            return false;
         }
-
-        if (empty($user->getPassword())) {
-            $errors['password'] = 'Password is required';
-        }
-
-        // Additional validation for other fields, such as name, address, etc.
-        return $errors;
     }
 
-    public function validateLogin($username, $password)
-    {
-        $errors = array();
-
-        if (empty($username)) {
-            $errors['username'] = 'Username is required';
-        }
-
-        if (empty($password)) {
-            $errors['password'] = 'Password is required';
-        }
-
-        return $errors;
-    }
-
-    public function register($user)
+    public function save($user)
     {
         // Hash the password before saving it to the database
         $password = $user->getPassword();
@@ -61,18 +43,14 @@ class UserService
 
     public function login($username, $password)
     {
-        $user = $this->userRepository->findByUsername($username);
+        $user = $this->userRepository->getByEmail($username);
 
-        if (!$user) {
-            throw new Exception('User not found');
+        // Verify if the provided password matches the hashed password stored in the database
+        if ($user != null && password_verify($password, $user->getPassword())) {
+            $_SESSION['loggedin'] = $user->getId();
+            return self::LOGIN_SUCCESS;
+        } else {
+            return self::LOGIN_INVALID_CREDENTIALS;
         }
-
-        $passwordIsValid = password_verify($password, $user->getPassword());
-
-        if (!$passwordIsValid) {
-            throw new Exception('Invalid password');
-        }
-
-        return $user;
     }
 }
