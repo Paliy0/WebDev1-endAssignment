@@ -1,8 +1,11 @@
-<?php
-if ($_POST) {
-    print_r($_POST);
-}
-?>
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="error">
+        <?php
+        echo $_SESSION['error'];
+        unset($_SESSION['error']); // Clear the error after displaying
+        ?>
+    </div>
+<?php endif; ?>
 <!DOCTYPE html>
 <html lang="en">
 
