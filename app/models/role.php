@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Models;
+
 enum Role
 {
     case customer;

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Role;
+
 class User
 {
-    private int $id;
+    private int $user_id;
     private string $email;
     private string $password;
-    private string $role;
+    private Role $role;
     private string $created_at;
     private string $updated_at;
 
@@ -15,12 +17,12 @@ class User
 
     public function getId(): int
     {
-        return $this->id;
+        return $this->user_id;
     }
 
     public function setId(int $id): self
     {
-        $this->id = $id;
+        $this->user_id = $id;
         return $this;
     }
 
@@ -46,12 +48,12 @@ class User
         return $this;
     }
 
-    public function getRole(): string
+    public function getRole(): Role
     {
         return $this->role;
     }
 
-    public function setRole(string $role): self
+    public function setRole(Role $role): self
     {
         $this->role = $role;
         return $this;
