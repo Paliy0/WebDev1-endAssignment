@@ -6,5 +6,6 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
-*/vendor
-.env
+/vendor
+
+app/public/assets/js/argly/node_modules

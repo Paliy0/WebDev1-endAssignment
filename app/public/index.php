@@ -1,34 +1,28 @@
 <?php
-// Start output buffering
-ob_start();
 
-// Enable error reporting
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
+/**
+ * Set env variables and enable error reporting in local environment
+ */
+require_once(__DIR__ . "/lib/env.php"); // sets global env variables (database configuration)
+require_once(__DIR__ . "/lib/error_reporting.php"); // enables error reporting locally
 
-// Start session at the beginning
+/**
+ * Start user session
+ */
 session_start();
 
-require '../vendor/autoload.php';
+/**
+ * Require routing library
+ *  allows handling request for different URL routes, i.e. /users, /products, etc.
+ */
+require_once(__DIR__ . "/lib/Route.php");
 
-use Dotenv\Dotenv;
+/**
+ * Require routes
+ *  Defines the routes that our application will ned
+ */
+require_once(__DIR__ . "/routes/index.php");
+require_once(__DIR__ . "/routes/user.php");
 
-$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->safeLoad();
-
-// Only redirect to login if NOT logged in and trying to access protected routes
-$publicRoutes = ['login', 'register', 'home', ''];  // Add other public routes as needed
-$uri = trim($_SERVER['REQUEST_URI'], '/');
-$firstSegment = explode('/', $uri)[0];
-
-if (!isset($_SESSION['user_id']) && !in_array($firstSegment, $publicRoutes)) {
-    header('Location: /login');
-    exit();
-}
-
-$router = new App\PatternRouter();
-$router->route($uri);
-
-// Flush output buffer
-ob_end_flush();
+// Start the router, enabling handling requests
+Route::run();
