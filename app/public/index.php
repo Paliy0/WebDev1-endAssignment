@@ -19,10 +19,16 @@ require_once(__DIR__ . "/lib/Route.php");
 
 /**
  * Require routes
- *  Defines the routes that our application will ned
  */
 require_once(__DIR__ . "/routes/index.php");
 require_once(__DIR__ . "/routes/user.php");
+require_once(__DIR__ . "/routes/auth.php"); // Added authentication routes
+
+// Handle 404 errors
+Route::pathNotFound(function ($path) {
+    header('HTTP/1.0 404 Not Found');
+    require(__DIR__ . "/views/pages/404.php");
+});
 
 // Start the router, enabling handling requests
 Route::run();
