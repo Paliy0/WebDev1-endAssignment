@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * Include Composer autoloader
+ */
+require_once(__DIR__ . "/../vendor/autoload.php");
+
+/**
  * Set env variables and enable error reporting in local environment
  */
 require_once(__DIR__ . "/lib/env.php"); // sets global env variables (database configuration)
@@ -22,7 +27,9 @@ require_once(__DIR__ . "/lib/Route.php");
  */
 require_once(__DIR__ . "/routes/index.php");
 require_once(__DIR__ . "/routes/user.php");
-require_once(__DIR__ . "/routes/auth.php"); // Added authentication routes
+require_once(__DIR__ . "/routes/auth.php");
+require_once(__DIR__ . "/routes/product.php"); // Add product routes
+require_once(__DIR__ . "/routes/shop.php"); // Add shop routes
 
 // Handle 404 errors
 Route::pathNotFound(function ($path) {

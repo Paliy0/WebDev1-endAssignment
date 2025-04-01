@@ -1,9 +1,6 @@
 <?php
 
-require_once(__DIR__ . "/../controllers/AuthController.php");
-
-// Create auth controller instance
-$authController = new AuthController();
+use App\Controllers\AuthController;
 
 // Login page route
 Route::add('/login', function () {
@@ -40,7 +37,7 @@ Route::add('/register', function () {
     $passwordConfirm = $_POST['password_confirm'] ?? '';
     $role = $_POST['role'] ?? '';
 
-    $authController = new AuthController();
+    $authController = new App\Controllers\AuthController();
     $result = $authController->register($email, $password, $passwordConfirm, $role);
 
     if ($result['success']) {
@@ -56,7 +53,7 @@ Route::add('/register', function () {
 
 // Logout route
 Route::add('/logout', function () {
-    $authController = new AuthController();
+    $authController = new App\Controllers\AuthController();
     $authController->logout();
 
     header('Location: /login');
@@ -65,7 +62,7 @@ Route::add('/logout', function () {
 
 // Profile page route
 Route::add('/profile', function () {
-    $authController = new AuthController();
+    $authController = new App\Controllers\AuthController();
 
     if (!$authController->isLoggedIn()) {
         header('Location: /login');

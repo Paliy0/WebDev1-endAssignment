@@ -22,7 +22,7 @@
                 <div class="card-body text-center">
                     <h3>Electronics</h3>
                     <p>Find the latest gadgets and electronics.</p>
-                    <a href="/products/category/electronics" class="btn btn-outline-primary">Browse</a>
+                    <a href="/products" class="btn btn-outline-primary">Browse</a>
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
                 <div class="card-body text-center">
                     <h3>Fashion</h3>
                     <p>Discover trendy clothes and accessories.</p>
-                    <a href="/products/category/fashion" class="btn btn-outline-primary">Browse</a>
+                    <a href="/products" class="btn btn-outline-primary">Browse</a>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
                 <div class="card-body text-center">
                     <h3>Home & Garden</h3>
                     <p>Enhance your living space with our collection.</p>
-                    <a href="/products/category/home-garden" class="btn btn-outline-primary">Browse</a>
+                    <a href="/products" class="btn btn-outline-primary">Browse</a>
                 </div>
             </div>
         </div>

@@ -1,7 +1,6 @@
 <?php
 
-// require the user controller so we can use it in this file
-require_once(__DIR__ . "/../controllers/UserController.php");
+use App\Controllers\UserController;
 
 // any request for the /users route will be handled by this function
 Route::add('/users', function () {

@@ -8,7 +8,6 @@
                     <h3>Profile Information</h3>
                 </div>
                 <div class="card-body">
-                    <p><strong>Username:</strong> <?= $user['username']; ?></p>
                     <p><strong>Email:</strong> <?= $user['email']; ?></p>
                     <p><strong>Account Type:</strong> <?= ucfirst($user['role']); ?></p>
                 </div>

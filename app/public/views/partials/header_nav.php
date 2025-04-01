@@ -1,5 +1,7 @@
 <?php
-require_once(__DIR__ . "/../../controllers/AuthController.php");
+
+use App\Controllers\AuthController;
+
 $authController = new AuthController();
 $isLoggedIn = $authController->isLoggedIn();
 $currentUser = $isLoggedIn ? $authController->getCurrentUser() : null;
@@ -25,8 +27,14 @@ $currentUser = $isLoggedIn ? $authController->getCurrentUser() : null;
                     <a class="nav-link" href="/shops">Shops</a>
                 </li>
                 <?php if ($isLoggedIn && $currentUser['role'] === 'business'): ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/shops/manage">Manage Shops</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Manage Business
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/shops/manage">My Shops</a></li>
+                            <li><a class="dropdown-item" href="/products/manage">My Products</a></li>
+                        </ul>
                     </li>
                 <?php endif; ?>
             </ul>
@@ -41,6 +49,7 @@ $currentUser = $isLoggedIn ? $authController->getCurrentUser() : null;
                             <li><a class="dropdown-item" href="/profile">My Profile</a></li>
                             <?php if ($currentUser['role'] === 'customer'): ?>
                                 <li><a class="dropdown-item" href="/orders">My Orders</a></li>
+                                <li><a class="dropdown-item" href="/cart">My Cart</a></li>
                             <?php endif; ?>
                             <li>
                                 <hr class="dropdown-divider">
