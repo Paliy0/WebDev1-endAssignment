@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\AuthController;
+use App\Controllers\ShopController;
 
 // Login page route
 Route::add('/login', function () {
@@ -37,7 +38,7 @@ Route::add('/register', function () {
     $passwordConfirm = $_POST['password_confirm'] ?? '';
     $role = $_POST['role'] ?? '';
 
-    $authController = new App\Controllers\AuthController();
+    $authController = new AuthController();
     $result = $authController->register($email, $password, $passwordConfirm, $role);
 
     if ($result['success']) {
@@ -53,7 +54,7 @@ Route::add('/register', function () {
 
 // Logout route
 Route::add('/logout', function () {
-    $authController = new App\Controllers\AuthController();
+    $authController = new AuthController();
     $authController->logout();
 
     header('Location: /login');
@@ -62,7 +63,8 @@ Route::add('/logout', function () {
 
 // Profile page route
 Route::add('/profile', function () {
-    $authController = new App\Controllers\AuthController();
+    $authController = new AuthController();
+    $shopController = new ShopController();
 
     if (!$authController->isLoggedIn()) {
         header('Location: /login');
@@ -70,5 +72,7 @@ Route::add('/profile', function () {
     }
 
     $user = $authController->getCurrentUser();
+    $shops = $shopController->getUserShops();
+
     require(__DIR__ . "/../views/pages/profile.php");
 }, 'get');

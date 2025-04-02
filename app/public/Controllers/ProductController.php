@@ -6,6 +6,8 @@ use App\Models\ProductModel;
 use App\Models\ShopModel;
 use App\Controllers\AuthController;
 
+use Cloudinary\Api\Upload\UploadApi;
+
 class ProductController
 {
     private $productModel;
@@ -73,16 +75,13 @@ class ProductController
             ];
         }
 
-        // Use the current user's ID as the store_id
-        $currentUser = $this->authController->getCurrentUser();
-
         // Validate required fields
-        $requiredFields = ['name', 'price', 'stock'];
+        $requiredFields = ['name', 'price', 'stock', 'shop_id'];
         foreach ($requiredFields as $field) {
             if (empty($data[$field])) {
                 return [
                     'success' => false,
-                    'message' => ucfirst($field) . ' is required'
+                    'message' => ucfirst(str_replace('_', ' ', $field)) . ' is required'
                 ];
             }
         }
@@ -102,29 +101,32 @@ class ProductController
             ];
         }
 
-        // Handle image upload if provided
+        // Handle image upload with Cloudinary if provided
         $imgPath = '';
         if ($file && isset($file['image']) && $file['image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = __DIR__ . '/../public/uploads/products/';
+            try {
 
-            // Create directory if it doesn't exist
-            if (!file_exists($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
-            }
+                // Upload to Cloudinary
+                $upload = new UploadApi();
+                $result = $upload->upload($file['image']['tmp_name'], [
+                    'folder' => 'products',
+                    'public_id' => 'product_' . time(),
+                    'overwrite' => true
+                ]);
 
-            // Generate unique filename
-            $fileName = uniqid() . '_' . basename($file['image']['name']);
-            $uploadPath = $uploadDir . $fileName;
-
-            // Move uploaded file
-            if (move_uploaded_file($file['image']['tmp_name'], $uploadPath)) {
-                $imgPath = '/uploads/products/' . $fileName;
+                // Get secure URL from result
+                $imgPath = $result['secure_url'];
+            } catch (\Exception $e) {
+                return [
+                    'success' => false,
+                    'message' => 'Image upload failed: ' . $e->getMessage()
+                ];
             }
         }
 
         // Prepare data for database
         $productData = [
-            'store_id' => $currentUser['id'],
+            'store_id' => $data['shop_id'],
             'name' => $data['name'],
             'description' => $data['description'] ?? '',
             'price' => $data['price'],
@@ -199,30 +201,31 @@ class ProductController
             ];
         }
 
-        // Handle image upload if provided
+        // Handle image upload with Cloudinary if provided
         if ($file && isset($file['image']) && $file['image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = __DIR__ . '/../public/uploads/products/';
+            try {
 
-            // Create directory if it doesn't exist
-            if (!file_exists($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
-            }
+                // Upload to Cloudinary
+                $upload = new UploadApi();
+                $result = $upload->upload($file['image']['tmp_name'], [
+                    'folder' => 'products',
+                    'public_id' => 'product_' . $id . '_' . time(),
+                    'overwrite' => true
+                ]);
 
-            // Generate unique filename
-            $fileName = uniqid() . '_' . basename($file['image']['name']);
-            $uploadPath = $uploadDir . $fileName;
-
-            // Move uploaded file
-            if (move_uploaded_file($file['image']['tmp_name'], $uploadPath)) {
-                $data['img'] = '/uploads/products/' . $fileName;
+                // Get secure URL from result
+                $data['img'] = $result['secure_url'];
 
                 // Remove old image if it exists
                 if (!empty($product['img'])) {
-                    $oldImagePath = __DIR__ . '/../public' . $product['img'];
-                    if (file_exists($oldImagePath)) {
-                        unlink($oldImagePath);
-                    }
+                    $upload = new UploadApi();
+                    $upload->destroy($this->extractPublicId($product['img']), []);
                 }
+            } catch (\Exception $e) {
+                return [
+                    'success' => false,
+                    'message' => 'Image upload failed: ' . $e->getMessage()
+                ];
             }
         }
 
@@ -277,10 +280,8 @@ class ProductController
 
         // Delete product image if it exists
         if (!empty($product['img'])) {
-            $imagePath = __DIR__ . '/../public' . $product['img'];
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
+            $upload = new UploadApi();
+            $upload->destroy($this->extractPublicId($product['img']), []);
         }
 
         // Delete product
@@ -297,5 +298,19 @@ class ProductController
             'success' => true,
             'message' => 'Product deleted successfully'
         ];
+    }
+
+    private function extractPublicId($url)
+    {
+        // Extract the filename without extension
+        $pathInfo = pathinfo(parse_url($url, PHP_URL_PATH));
+        $filename = $pathInfo['filename'];
+
+        // If the URL is from Cloudinary, it will contain folder structure
+        $parts = explode('/', $pathInfo['dirname']);
+        $folder = end($parts);
+
+        // Return the folder/filename as public_id
+        return 'products/' . $filename;
     }
 }

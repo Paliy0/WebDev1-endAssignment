@@ -21,9 +21,23 @@
                         <h3>My Shops</h3>
                     </div>
                     <div class="card-body">
-                        <!-- Shop list will be added later -->
-                        <p>You currently have no shops.</p>
-                        <a href="/shops/create" class="btn btn-primary">Create a Shop</a>
+                        <?php if (empty($shops)): ?>
+                            <p>You currently have no shops.</p>
+                        <?php else: ?>
+                            <div class="list-group">
+                                <?php foreach ($shops as $shop): ?>
+                                    <a href="/shops/<?= $shop['shop_id']; ?>" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1"><?= $shop['name']; ?></h5>
+                                        </div>
+                                        <p class="mb-1"><?= $shop['description']; ?></p>
+                                    </a>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                        <div class="mt-3">
+                            <a href="/shops/create" class="btn btn-primary">Create a Shop</a>
+                        </div>
                     </div>
                 </div>
             <?php endif; ?>

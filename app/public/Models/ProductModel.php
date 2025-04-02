@@ -138,10 +138,11 @@ class ProductModel extends BaseModel
     {
         try {
             $sql = "
-                SELECT p.*, u.email as shop_email
-                FROM products p
-                JOIN users u ON p.store_id = u.user_id
-                WHERE 1=1
+            SELECT p.*, s.shop_id, u.email as shop_email, s.name as shop_name
+            FROM products p
+            JOIN users u ON p.store_id = u.user_id
+            LEFT JOIN shops s ON p.store_id = s.user_id
+            WHERE 1=1
             ";
 
             $params = [];

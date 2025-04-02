@@ -2,7 +2,7 @@
 
 <main class="container mt-4">
     <h1 class="mb-4">All Products</h1>
-    
+
     <!-- Search Form -->
     <div class="row mb-4">
         <div class="col-md-6">
@@ -12,21 +12,21 @@
             </form>
         </div>
     </div>
-    
+
     <?php if (isset($_SESSION['success'])): ?>
         <div class="alert alert-success">
             <?= $_SESSION['success']; ?>
             <?php unset($_SESSION['success']); ?>
         </div>
     <?php endif; ?>
-    
+
     <?php if (isset($_SESSION['error'])): ?>
         <div class="alert alert-danger">
             <?= $_SESSION['error']; ?>
             <?php unset($_SESSION['error']); ?>
         </div>
     <?php endif; ?>
-    
+
     <?php if (empty($products)): ?>
         <div class="alert alert-info">
             No products found.
@@ -37,26 +37,26 @@
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <?php if (!empty($product['img'])): ?>
-                            <img src="<?= htmlspecialchars($product['img']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>" style="height: 200px; object-fit: cover;">
+                            <img src="<?= $product['img'] ?>" class="card-img-top" alt="<?= $product['name'] ?>" style="height: 200px; object-fit: cover;">
                         <?php else: ?>
                             <div class="bg-light text-center p-5">
                                 <i class="fa fa-image fa-4x text-muted"></i>
                             </div>
                         <?php endif; ?>
-                        
+
                         <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars($product['name']) ?></h5>
-                            <p class="card-text text-truncate"><?= htmlspecialchars($product['description']) ?></p>
+                            <h5 class="card-title"><?= $product['name'] ?></h5>
+                            <p class="card-text text-truncate"><?= $product['description'] ?></p>
                             <p class="card-text"><strong>$<?= number_format($product['price'], 2) ?></strong></p>
-                            <p class="card-text"><small class="text-muted">Sold by: <a href="/shops/<?= $product['shop_id'] ?>"><?= htmlspecialchars($product['shop_name']) ?></a></small></p>
+                            <p class="text-muted">Sold by: <a href="/shops/<?= $product['store_id'] ?>"><?= $product['shop_name'] ?></a></p>
                         </div>
-                        
+
                         <div class="card-footer d-flex justify-content-between">
-                            <a href="/products/<?= $product['id'] ?>" class="btn btn-primary">View Details</a>
-                            
+                            <a href="/products/<?= $product['product_id'] ?>" class="btn btn-primary">View Details</a>
+
                             <?php if ($product['stock'] > 0): ?>
                                 <form action="/cart/add" method="post">
-                                    <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                                    <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
                                     <input type="hidden" name="quantity" value="1">
                                     <button type="submit" class="btn btn-success">Add to Cart</button>
                                 </form>

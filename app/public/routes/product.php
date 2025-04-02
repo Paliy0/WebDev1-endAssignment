@@ -48,11 +48,13 @@ Route::add('/products/manage', function () use ($productController, $authControl
 }, 'get');
 
 // Create product form
-Route::add('/products/create', function () use ($authController) {
+Route::add('/products/create', function () use ($authController, $shopController) {
     if (!$authController->isLoggedIn() || !$authController->hasRole('business')) {
         header('Location: /login');
         exit;
     }
+
+    $shops = $shopController->getUserShops();
 
     require(__DIR__ . "/../views/pages/create_product.php");
 }, 'get');
