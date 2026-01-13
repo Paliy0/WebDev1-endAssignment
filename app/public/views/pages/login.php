@@ -43,10 +43,20 @@
                             <div class="mb-4">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <label for="password" class="form-label">Password</label>
+                                    <a href="/forgot-password" class="small text-decoration-none">Forgot password?</a>
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
                                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="remember-me">
+                                    <label class="form-check-label" for="remember-me">
+                                        Remember me
+                                    </label>
                                 </div>
                             </div>
 
