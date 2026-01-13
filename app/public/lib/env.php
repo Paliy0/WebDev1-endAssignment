@@ -7,6 +7,6 @@ $_ENV["DB_PASSWORD"] = "secret123";
 $_ENV["DB_CHARSET"] = "utf8mb4";
 $_ENV["ENV"] = "LOCAL";
 
-$_ENV["CLOUDINARY_CLOUD_NAME"] = "your_cloud_name";
-$_ENV["CLOUDINARY_API_KEY"] = "your_api_key";
-$_ENV["CLOUDINARY_API_SECRET"] = "your_api_secret";
+$_ENV["CLOUDINARY_CLOUD_NAME"] = "paliyo";
+$_ENV["CLOUDINARY_API_KEY"] = "974684973245881";
+$_ENV["CLOUDINARY_API_SECRET"] = "XxDkhqEcnzOVHX2EHLez6D8HLQg";

@@ -1,3 +1,14 @@
+3.1.2 / 2025-09-21
+==================
+
+  * Fix nonexistent file error handling
+
+3.1.1 / 2025-06-17
+==================
+
+  * Add support for `429 Too Many Requests` HTTP status code
+  * Fix API parameters signature
+
 3.1.0 / 2025-01-14
 ==================
 

@@ -31,9 +31,7 @@ require_once(__DIR__ . "/routes/auth.php");
 require_once(__DIR__ . "/routes/product.php");
 require_once(__DIR__ . "/routes/shop.php");
 
-use Cloudinary\Configuration\Configuration;
 
-Configuration::instance('cloudinary://974684973245881:XxDkhqEcnzOVHX2EHLez6D8HLQg@paliyo?secure=true');
 
 
 // Handle 404 errors

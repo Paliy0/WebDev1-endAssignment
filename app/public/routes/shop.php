@@ -11,8 +11,15 @@ $productController = new ProductController();
 
 // Shops listing page
 Route::add('/shops', function () use ($shopController) {
-    $shops = $shopController->getAllShops();
-    require(__DIR__ . "/../views/pages/shops.php");
+    $search = $_GET['search'] ?? '';
+    $filters = [];
+
+    if (!empty($search)) {
+        $filters['search'] = $search;
+    }
+
+    $shops = $shopController->getAllShops($filters);
+    require(__DIR__ . "/../views/pages/shop/shops.php");
 }, 'get');
 
 // Shop detail page
@@ -25,9 +32,9 @@ Route::add('/shops/([0-9]+)', function ($shopId) use ($shopController, $productC
     }
 
     // Get products for this shop
-    $products = $productController->getShopProducts($shop['user_id']);
+    $products = $productController->getShopProducts($shopId);
 
-    require(__DIR__ . "/../views/pages/shop_detail.php");
+    require(__DIR__ . "/../views/pages/shop/shop_detail.php");
 }, 'get');
 
 // Shop management page (for business owner)
@@ -38,7 +45,7 @@ Route::add('/shops/manage', function () use ($shopController, $authController) {
     }
 
     $shops = $shopController->getUserShops();
-    require(__DIR__ . "/../views/pages/manage_shops.php");
+    require(__DIR__ . "/../views/pages/shop/manage_shops.php");
 }, 'get');
 
 // Create shop form
@@ -48,7 +55,7 @@ Route::add('/shops/create', function () use ($authController) {
         exit;
     }
 
-    require(__DIR__ . "/../views/pages/create_shop.php");
+    require(__DIR__ . "/../views/pages/shop/create_shop.php");
 }, 'get');
 
 // Create shop form submission
@@ -82,13 +89,13 @@ Route::add('/shops/([0-9]+)/edit', function ($shopId) use ($shopController, $aut
 
     // Check if user owns the shop
     $currentUser = $authController->getCurrentUser();
-    if ($shop['user_id'] != $currentUser['id']) {
+    if ($shop['owner_id'] != $currentUser['id']) {
         $_SESSION['error'] = 'You do not have permission to edit this shop.';
         header('Location: /shops/manage');
         exit;
     }
 
-    require(__DIR__ . "/../views/pages/edit_shop.php");
+    require(__DIR__ . "/../views/pages/shop/edit_shop.php");
 }, 'get');
 
 // Edit shop form submission

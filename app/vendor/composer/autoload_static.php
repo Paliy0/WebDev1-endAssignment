@@ -13,24 +13,25 @@ class ComposerStaticInit30d484db1ae021622e67bcdf0a1f5bbb
     );
 
     public static $prefixLengthsPsr4 = array (
-        'P' => 
+        'P' =>
         array (
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
         ),
-        'M' => 
+        'M' =>
         array (
             'Monolog\\' => 8,
         ),
-        'G' => 
+        'G' =>
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
         ),
-        'A' => 
+        'A' =>
         array (
+            'App\\Services\\' => 13,
             'App\\Models\\' => 11,
             'App\\Controllers\\' => 16,
             'App\\' => 4,
@@ -38,44 +39,48 @@ class ComposerStaticInit30d484db1ae021622e67bcdf0a1f5bbb
     );
 
     public static $prefixDirsPsr4 = array (
-        'Psr\\Log\\' => 
+        'Psr\\Log\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'Psr\\Http\\Message\\' => 
+        'Psr\\Http\\Message\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
             1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Psr\\Http\\Client\\' => 
+        'Psr\\Http\\Client\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Monolog\\' => 
+        'Monolog\\' =>
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
-        'GuzzleHttp\\Psr7\\' => 
+        'GuzzleHttp\\Psr7\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' => 
+        'GuzzleHttp\\Promise\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'GuzzleHttp\\' => 
+        'GuzzleHttp\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'App\\Models\\' => 
+        'App\\Services\\' =>
         array (
-            0 => __DIR__ . '/../..' . '/public/Models',
+            0 => __DIR__ . '/../..' . '/public/services',
         ),
-        'App\\Controllers\\' => 
+        'App\\Models\\' =>
         array (
-            0 => __DIR__ . '/../..' . '/public/Controllers',
+            0 => __DIR__ . '/../..' . '/public/models',
         ),
-        'App\\' => 
+        'App\\Controllers\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/public/controllers',
+        ),
+        'App\\' =>
         array (
             0 => __DIR__ . '/../..' . '/public',
         ),

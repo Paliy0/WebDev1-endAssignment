@@ -13,7 +13,8 @@ return array(
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
-    'App\\Models\\' => array($baseDir . '/public/Models'),
-    'App\\Controllers\\' => array($baseDir . '/public/Controllers'),
+    'App\\Services\\' => array($baseDir . '/public/services'),
+    'App\\Models\\' => array($baseDir . '/public/models'),
+    'App\\Controllers\\' => array($baseDir . '/public/controllers'),
     'App\\' => array($baseDir . '/public'),
 );
