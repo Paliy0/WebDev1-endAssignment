@@ -19,7 +19,7 @@ Route::add('/products', function () use ($productController) {
     }
 
     $products = $productController->getAllProducts($filters);
-    require(__DIR__ . "/../views/pages/product/products.php");
+    require(__DIR__ . "/../views/pages/products.php");
 }, 'get');
 
 // Product detail page
@@ -31,7 +31,7 @@ Route::add('/products/([0-9]+)', function ($productId) use ($productController) 
         exit;
     }
 
-    require(__DIR__ . "/../views/pages/product/product_detail.php");
+    require(__DIR__ . "/../views/pages/product_detail.php");
 }, 'get');
 
 // Product management page (list all products for business owner)
@@ -42,9 +42,9 @@ Route::add('/products/manage', function () use ($productController, $authControl
     }
 
     $currentUser = $authController->getCurrentUser();
-    $products = $productController->getUserProducts($currentUser['id']);
+    $products = $productController->getShopProducts($currentUser['id']);
 
-    require(__DIR__ . "/../views/pages/product/manage_products.php");
+    require(__DIR__ . "/../views/pages/manage_products.php");
 }, 'get');
 
 // Create product form
@@ -56,7 +56,7 @@ Route::add('/products/create', function () use ($authController, $shopController
 
     $shops = $shopController->getUserShops();
 
-    require(__DIR__ . "/../views/pages/product/create_product.php");
+    require(__DIR__ . "/../views/pages/create_product.php");
 }, 'get');
 
 // Create product form submission
@@ -72,56 +72,4 @@ Route::add('/products/create', function () use ($productController) {
         header('Location: /products/create');
         exit;
     }
-}, 'post');
-
-// Edit product form
-Route::add('/products/([0-9]+)/edit', function ($productId) use ($productController, $authController) {
-    if (!$authController->isLoggedIn() || !$authController->hasRole('business')) {
-        header('Location: /login');
-        exit;
-    }
-
-    $product = $productController->getProduct($productId);
-    if (!$product) {
-        header('Location: /products/manage');
-        exit;
-    }
-
-    // Check if user owns the product
-    $currentUser = $authController->getCurrentUser();
-    if ($product['store_id'] != $currentUser['id']) {
-        header('Location: /products/manage');
-        exit;
-    }
-
-    require(__DIR__ . "/../views/pages/product/edit_product.php");
-}, 'get');
-
-// Update product form submission
-Route::add('/products/([0-9]+)/edit', function ($productId) use ($productController) {
-    $result = $productController->updateProduct($productId, $_POST, $_FILES);
-
-    if ($result['success']) {
-        $_SESSION['success'] = $result['message'];
-        header('Location: /products/manage');
-        exit;
-    } else {
-        $_SESSION['error'] = $result['message'];
-        header('Location: /products/' . $productId . '/edit');
-        exit;
-    }
-}, 'post');
-
-// Delete product
-Route::add('/products/([0-9]+)/delete', function ($productId) use ($productController) {
-    $result = $productController->deleteProduct($productId);
-
-    if ($result['success']) {
-        $_SESSION['success'] = $result['message'];
-    } else {
-        $_SESSION['error'] = $result['message'];
-    }
-
-    header('Location: /products/manage');
-    exit;
 }, 'post');

@@ -74,46 +74,5 @@ Route::add('/profile', function () {
     $user = $authController->getCurrentUser();
     $shops = $shopController->getUserShops();
 
-    require(__DIR__ . "/../views/pages/profile/profile.php");
+    require(__DIR__ . "/../views/pages/profile.php");
 }, 'get');
-
-Route::add('/profile/edit', function () {
-    $authController = new AuthController();
-    $shopController = new ShopController();
-
-    if (!$authController->isLoggedIn()) {
-        header('Location: /login');
-        exit;
-    }
-
-    $user = $authController->getCurrentUser();
-    $shops = $shopController->getUserShops();
-
-    require(__DIR__ . "/../views/pages/profile/edit.php");
-}, 'get');
-
-// Handle profile edit form submission
-Route::add('/profile/edit', function () {
-    $authController = new AuthController();
-
-    if (!$authController->isLoggedIn()) {
-        header('Location: /login');
-        exit;
-    }
-
-    $email = $_POST['email'] ?? '';
-    $currentPassword = $_POST['current_password'] ?? '';
-    $newPassword = $_POST['new_password'] ?? '';
-    $confirmPassword = $_POST['confirm_password'] ?? '';
-
-    $result = $authController->updateProfile($email, $currentPassword, $newPassword, $confirmPassword);
-
-    if ($result['success']) {
-        $_SESSION['success'] = $result['message'];
-    } else {
-        $_SESSION['error'] = $result['message'];
-    }
-
-    header('Location: /profile/edit');
-    exit;
-}, 'post');
