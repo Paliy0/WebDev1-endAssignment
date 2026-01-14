@@ -17,7 +17,8 @@ Route::add('/login', function () {
     $success = $authController->login($email, $password);
 
     if ($success) {
-        header('Location: /');
+        $redirect = $authController->hasRole('admin') ? '/admin/dashboard' : '/';
+        header('Location: ' . $redirect);
         exit;
     } else {
         $_SESSION['error'] = 'Invalid credentials. Please try again.';

@@ -38,8 +38,20 @@ $currentUser = $isLoggedIn ? $authController->getCurrentUser() : null;
                             <li><a class="dropdown-item" href="/products/manage">My Products</a></li>
                         </ul>
                     </li>
-                <?php endif; ?>
-            </ul>
+                 <?php endif; ?>
+                 <?php if ($isLoggedIn && $currentUser['role'] === 'admin'): ?>
+                     <li class="nav-item dropdown">
+                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                             Admin Panel
+                         </a>
+                         <ul class="dropdown-menu">
+                             <li><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
+                             <li><a class="dropdown-item" href="/admin/users">Manage Users</a></li>
+                             <li><a class="dropdown-item" href="/admin/shops">Manage Shops</a></li>
+                         </ul>
+                     </li>
+                 <?php endif; ?>
+             </ul>
 
             <div class="d-flex align-items-center">
                 <?php if ($isLoggedIn): ?>
