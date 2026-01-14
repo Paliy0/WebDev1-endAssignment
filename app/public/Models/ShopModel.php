@@ -17,7 +17,7 @@ class ShopModel extends BaseModel
         try {
             $stmt = self::$pdo->prepare("
                 INSERT INTO shops (
-                    user_id,
+                    owner_id,
                     name,
                     description,
                     address,
@@ -26,7 +26,7 @@ class ShopModel extends BaseModel
                     img,
                     created_at
                 ) VALUES (
-                    :user_id,
+                    :owner_id,
                     :name,
                     :description,
                     :address,
@@ -38,11 +38,11 @@ class ShopModel extends BaseModel
             ");
 
             $stmt->execute([
-                ':user_id' => $data['user_id'],
+                ':owner_id' => $data['owner_id'],
                 ':name' => $data['name'],
-                ':description' => $data['description'],
+                ':description' => $data['description'] ?? '',
                 ':address' => $data['address'] ?? null,
-                ':contact_email' => $data['contact_email'],
+                ':contact_email' => $data['contact_email'] ?? null,
                 ':contact_number' => $data['contact_number'] ?? null,
                 ':img' => $data['img'] ?? ''
             ]);
@@ -99,7 +99,7 @@ class ShopModel extends BaseModel
             $stmt = self::$pdo->prepare("
                 SELECT s.*, u.email as owner_email
                 FROM shops s
-                JOIN users u ON s.user_id = u.user_id
+                JOIN users u ON s.owner_id = u.user_id
                 WHERE s.shop_id = :shop_id
             ");
 
@@ -117,7 +117,7 @@ class ShopModel extends BaseModel
             $stmt = self::$pdo->prepare("
                 SELECT s.*, u.email as owner_email
                 FROM shops s
-                JOIN users u ON s.user_id = u.user_id
+                JOIN users u ON s.owner_id = u.user_id
                 ORDER BY s.created_at DESC
             ");
 
@@ -134,11 +134,11 @@ class ShopModel extends BaseModel
         try {
             $stmt = self::$pdo->prepare("
                 SELECT * FROM shops
-                WHERE user_id = :user_id
+                WHERE owner_id = :owner_id
                 ORDER BY created_at DESC
             ");
 
-            $stmt->execute([':user_id' => $userId]);
+            $stmt->execute([':owner_id' => $userId]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             error_log($e->getMessage());
@@ -151,12 +151,12 @@ class ShopModel extends BaseModel
         try {
             $stmt = self::$pdo->prepare("
                 SELECT COUNT(*) FROM shops
-                WHERE shop_id = :shop_id AND user_id = :user_id
+                WHERE shop_id = :shop_id AND owner_id = :owner_id
             ");
 
             $stmt->execute([
                 ':shop_id' => $shopId,
-                ':user_id' => $userId
+                ':owner_id' => $userId
             ]);
 
             return (int)$stmt->fetchColumn() > 0;

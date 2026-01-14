@@ -96,7 +96,7 @@ class ProductModel extends BaseModel
             $stmt = self::$pdo->prepare("
                 SELECT p.*, s.name as shop_name 
                 FROM products p
-                JOIN shops s ON p.store_id = s.user_id
+                JOIN shops s ON p.store_id = s.owner_id
                 WHERE p.product_id = :product_id
             ");
 
@@ -115,7 +115,7 @@ class ProductModel extends BaseModel
             SELECT p.*, s.shop_id, u.email as shop_email, s.name as shop_name
             FROM products p
             JOIN users u ON p.store_id = u.user_id
-            LEFT JOIN shops s ON p.store_id = s.user_id
+            LEFT JOIN shops s ON p.store_id = s.owner_id
             WHERE 1=1
             ";
 

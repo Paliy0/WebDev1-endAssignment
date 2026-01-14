@@ -87,7 +87,7 @@ class ShopController
 
         $currentUser = $this->authController->getCurrentUser();
         $shopData = [
-            'user_id' => $currentUser['id'],
+            'owner_id' => $currentUser['id'],
             'name' => $data['name'],
             'description' => $data['description'],
             'address' => $data['address'] ?? null,
@@ -130,7 +130,7 @@ class ShopController
         }
 
         $currentUser = $this->authController->getCurrentUser();
-        if ($shop['user_id'] != $currentUser['id']) {
+        if ($shop['owner_id'] != $currentUser['id']) {
             return [
                 'success' => false,
                 'message' => 'You do not own this shop'
@@ -199,7 +199,7 @@ class ShopController
         }
 
         $currentUser = $this->authController->getCurrentUser();
-        if ($shop['user_id'] != $currentUser['id']) {
+        if ($shop['owner_id'] != $currentUser['id']) {
             return [
                 'success' => false,
                 'message' => 'You do not own this shop'
