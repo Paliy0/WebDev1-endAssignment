@@ -161,13 +161,7 @@ class AdminController
                 exit;
             }
 
-            $userData = [
-                'email' => $data['email'],
-                'password' => password_hash($data['password'], PASSWORD_DEFAULT),
-                'role' => $data['role']
-            ];
-
-            $success = $this->userModel->create($userData);
+            $success = $this->userModel->create($data['email'], $data['password'], $data['role']);
             if ($success) {
                 $_SESSION['success'] = 'User created successfully';
             } else {
