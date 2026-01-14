@@ -68,10 +68,10 @@ class UserModel extends BaseModel
     {
         try {
             $stmt = self::$pdo->prepare("
-                SELECT * FROM users WHERE id = :id LIMIT 1
+                SELECT * FROM users WHERE user_id = :user_id LIMIT 1
             ");
 
-            $stmt->execute([':id' => $id]);
+            $stmt->execute([':user_id' => $id]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             return $user ? $user : false;
@@ -90,8 +90,8 @@ class UserModel extends BaseModel
     {
         try {
             $stmt = self::$pdo->prepare("
-                SELECT id, username, email, role, created_at 
-                FROM users 
+                SELECT user_id as id, email, role, created_at
+                FROM users
                 ORDER BY created_at DESC
             ");
 
@@ -105,7 +105,7 @@ class UserModel extends BaseModel
     }
 
     /**
-     * Update user profile
+     * Update user profile (limited fields)
      * @param int $id User ID
      * @param array $data User data to update
      * @return bool Success or failure
@@ -113,9 +113,9 @@ class UserModel extends BaseModel
     public function update($id, $data)
     {
         try {
-            $allowedFields = ['username', 'email'];
+            $allowedFields = ['email'];
             $sets = [];
-            $params = [':id' => $id];
+            $params = [':user_id' => $id];
 
             foreach ($data as $key => $value) {
                 if (in_array($key, $allowedFields)) {
@@ -128,12 +128,63 @@ class UserModel extends BaseModel
                 return false;
             }
 
-            $sql = "UPDATE users SET " . implode(', ', $sets) . " WHERE id = :id";
+            $sql = "UPDATE users SET " . implode(', ', $sets) . " WHERE user_id = :user_id";
             $stmt = self::$pdo->prepare($sql);
 
             return $stmt->execute($params);
         } catch (PDOException $e) {
             // Log error
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Update user by admin (includes role)
+     * @param int $id User ID
+     * @param array $data User data to update
+     * @return bool Success or failure
+     */
+    public function updateAdmin($id, $data)
+    {
+        try {
+            $allowedFields = ['email', 'role'];
+            $sets = [];
+            $params = [':user_id' => $id];
+
+            foreach ($data as $key => $value) {
+                if (in_array($key, $allowedFields)) {
+                    $sets[] = "$key = :$key";
+                    $params[":$key"] = $value;
+                }
+            }
+
+            if (empty($sets)) {
+                return false;
+            }
+
+            $sql = "UPDATE users SET " . implode(', ', $sets) . " WHERE user_id = :user_id";
+            $stmt = self::$pdo->prepare($sql);
+
+            return $stmt->execute($params);
+        } catch (PDOException $e) {
+            // Log error
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Delete user
+     * @param int $id User ID
+     * @return bool Success or failure
+     */
+    public function delete($id)
+    {
+        try {
+            $stmt = self::$pdo->prepare("DELETE FROM users WHERE user_id = :user_id");
+            return $stmt->execute([':user_id' => $id]);
+        } catch (PDOException $e) {
             error_log($e->getMessage());
             return false;
         }
