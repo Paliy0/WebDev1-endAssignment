@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6 col-xl-5">
                 <div class="text-center mb-4">
-                    <h1 class="h2 text-primary fw-bold">PHP Marketplace</h1>
+                    <h1 class="h2 text-primary fw-bold">PHP Shop</h1>
                     <p class="text-muted">Your one-stop shop for everything</p>
                 </div>
 

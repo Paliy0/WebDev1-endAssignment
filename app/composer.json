@@ -1,6 +1,6 @@
 {
   "name": "root/app",
-  "description": "php marketplace",
+  "description": "php shop",
   "type": "project",
   "require": {
     "cloudinary/cloudinary_php": "^3.1"

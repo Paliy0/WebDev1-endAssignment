@@ -79,7 +79,7 @@
                 </form>
                 <div class="mb-2 d-flex align-items-center text-muted">
                     <i class="bi bi-envelope me-2"></i>
-                    <span>support@phpmarketplace.com</span>
+                    <span>support@phpshop.com</span>
                 </div>
                 <div class="mb-2 d-flex align-items-center text-muted">
                     <i class="bi bi-telephone me-2"></i>
@@ -97,7 +97,7 @@
         <div class="row align-items-center">
             <div class="col-md-6 text-center text-md-start">
                 <p class="text-muted small mb-md-0">
-                    &copy; <?= date('Y') ?> PHP Marketplace. All rights reserved.
+                    &copy; <?= date('Y') ?> PHP Shop. All rights reserved.
                 </p>
             </div>
             <div class="col-md-6">
