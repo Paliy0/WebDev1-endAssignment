@@ -12,7 +12,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN composer install --no-dev --optimize-autoloader
 
-COPY nginx.conf /etc/nginx/sites-available/default
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
