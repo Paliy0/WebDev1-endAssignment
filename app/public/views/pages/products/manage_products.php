@@ -1,4 +1,4 @@
-<?php require(__DIR__ . "/../partials/header.php"); ?>
+<?php require(__DIR__ . "/../../partials/header.php"); ?>
 
 <main class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -103,4 +103,4 @@
     <?php endif; ?>
 </main>
 
-<?php require(__DIR__ . "/../partials/footer.php"); ?>
+<?php require(__DIR__ . "/../../partials/footer.php"); ?>

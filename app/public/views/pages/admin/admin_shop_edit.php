@@ -1,4 +1,4 @@
-<?php require(__DIR__ . "/../partials/header.php"); ?>
+<?php require(__DIR__ . "/../../partials/header.php"); ?>
 
 <div class="min-vh-100 d-flex flex-column justify-content-center bg-light py-5">
     <div class="container">
@@ -48,7 +48,7 @@
                                 <label for="owner_id" class="form-label">Owner</label>
                                 <select class="form-select" id="owner_id" name="owner_id" required>
                                     <?php foreach ($businessUsers as $user): ?>
-                                        <option value="<?= $user['id'] ?>" <?= $shop['user_id'] == $user['id'] ? 'selected' : '' ?>>
+                                        <option value="<?= $user['id'] ?>" <?= $shop['owner_id'] == $user['id'] ? 'selected' : '' ?>>
                                             <?= htmlspecialchars($user['email']) ?>
                                         </option>
                                     <?php endforeach; ?>

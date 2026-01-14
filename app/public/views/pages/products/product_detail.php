@@ -1,4 +1,4 @@
-<?php require(__DIR__ . "/../partials/header.php"); ?>
+<?php require(__DIR__ . "/../../partials/header.php"); ?>
 
 <main class="container mt-4">
     <?php if (isset($_SESSION['success'])): ?>
@@ -72,4 +72,4 @@
     </div>
 </main>
 
-<?php require(__DIR__ . "/../partials/footer.php"); ?>
+<?php require(__DIR__ . "/../../partials/footer.php"); ?>

@@ -29,7 +29,7 @@ class AdminController
         $userCount = count($this->userModel->getAll());
         $shopCount = count($this->shopModel->getAll());
 
-        require __DIR__ . '/../views/pages/admin_dashboard.php';
+        require __DIR__ . '/../views/pages/admin/admin_dashboard.php';
     }
 
     public function getAllUsers()
@@ -40,7 +40,7 @@ class AdminController
         }
 
         $users = $this->userModel->getAll();
-        require __DIR__ . '/../views/pages/admin_users.php';
+        require __DIR__ . '/../views/pages/admin/admin_users.php';
     }
 
     public function editUser($id)
@@ -77,7 +77,7 @@ class AdminController
             }
         }
 
-        require __DIR__ . '/../views/pages/admin_user_edit.php';
+        require __DIR__ . '/../views/pages/admin/admin_user_edit.php';
     }
 
     private function updateUser($id, $data)
@@ -189,7 +189,7 @@ class AdminController
             return $user['role'] === 'business';
         });
 
-        require __DIR__ . '/../views/pages/admin_shops.php';
+        require __DIR__ . '/../views/pages/admin/admin_shops.php';
     }
 
     public function editShop($id)
@@ -224,7 +224,7 @@ class AdminController
             }
         }
 
-        require __DIR__ . '/../views/pages/admin_shop_edit.php';
+        require __DIR__ . '/../views/pages/admin/admin_shop_edit.php';
     }
 
     private function updateShop($id, $data)
@@ -243,7 +243,7 @@ class AdminController
             'address' => $data['address'] ?? '',
             'contact_email' => $data['contact_email'] ?? '',
             'contact_number' => $data['contact_number'] ?? '',
-            'user_id' => $data['owner_id']
+            'owner_id' => $data['owner_id']
         ];
 
         $success = $this->shopModel->update($id, $updateData);
@@ -308,7 +308,8 @@ class AdminController
                 'address' => $data['address'] ?? '',
                 'contact_email' => $data['contact_email'] ?? '',
                 'contact_number' => $data['contact_number'] ?? '',
-                'user_id' => $data['owner_id']
+                'owner_id' => $data['owner_id'],
+                'img' => ''
             ];
 
             $success = $this->shopModel->create($shopData);

@@ -5,11 +5,11 @@ use App\Controllers\UserController;
 Route::add('/users', function () {
     $userController = new UserController();
     $users = $userController->getAll();
-    require_once(__DIR__ . "/../views/pages/users.php");
+    require_once(__DIR__ . "/../views/pages/users/users.php");
 });
 
 Route::add('/user/([a-z-0-9-]*)', function ($userId) {
     $userController = new UserController();
     $user = $userController->get($userId);
-    require_once(__DIR__ . "/../views/pages/user.php");
+    require_once(__DIR__ . "/../views/pages/users/user.php");
 });

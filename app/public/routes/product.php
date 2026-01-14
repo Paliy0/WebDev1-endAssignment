@@ -17,7 +17,7 @@ Route::add('/products', function () use ($productController) {
     }
 
     $products = $productController->getAllProducts($filters);
-    require(__DIR__ . "/../views/pages/products.php");
+    require(__DIR__ . "/../views/pages/products/products.php");
 }, 'get');
 
 Route::add('/products/([0-9]+)', function ($productId) use ($productController) {
@@ -28,7 +28,7 @@ Route::add('/products/([0-9]+)', function ($productId) use ($productController) 
         exit;
     }
 
-    require(__DIR__ . "/../views/pages/product_detail.php");
+    require(__DIR__ . "/../views/pages/products/product_detail.php");
 }, 'get');
 
 Route::add('/products/manage', function () use ($productController, $authController) {
@@ -40,7 +40,7 @@ Route::add('/products/manage', function () use ($productController, $authControl
     $currentUser = $authController->getCurrentUser();
     $products = $productController->getShopProducts($currentUser['id']);
 
-    require(__DIR__ . "/../views/pages/manage_products.php");
+    require(__DIR__ . "/../views/pages/products/manage_products.php");
 }, 'get');
 
 Route::add('/products/create', function () use ($authController, $shopController) {
@@ -51,7 +51,7 @@ Route::add('/products/create', function () use ($authController, $shopController
 
     $shops = $shopController->getUserShops();
 
-    require(__DIR__ . "/../views/pages/create_product.php");
+    require(__DIR__ . "/../views/pages/products/create_product.php");
 }, 'get');
 
 Route::add('/products/create', function () use ($productController) {

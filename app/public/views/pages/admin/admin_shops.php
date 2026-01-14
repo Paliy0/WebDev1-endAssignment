@@ -1,4 +1,4 @@
-<?php require(__DIR__ . "/../partials/header.php"); ?>
+<?php require(__DIR__ . "/../../partials/header.php"); ?>
 
 <main class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -141,7 +141,7 @@
                                 <label for="owner_id<?= $shop['shop_id'] ?>" class="form-label">Owner</label>
                                 <select class="form-select" id="owner_id<?= $shop['shop_id'] ?>" name="owner_id" required>
                                     <?php foreach ($businessUsers as $user): ?>
-                                        <option value="<?= $user['id'] ?>" <?= $shop['user_id'] == $user['id'] ? 'selected' : '' ?>>
+                                        <option value="<?= $user['id'] ?>" <?= $shop['owner_id'] == $user['id'] ? 'selected' : '' ?>>
                                             <?= htmlspecialchars($user['email']) ?>
                                         </option>
                                     <?php endforeach; ?>

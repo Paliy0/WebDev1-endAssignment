@@ -69,5 +69,5 @@ Route::add('/profile', function () {
     $user = $authController->getCurrentUser();
     $shops = $shopController->getUserShops();
 
-    require(__DIR__ . "/../views/pages/profile.php");
+    require(__DIR__ . "/../views/pages/users/profile.php");
 }, 'get');

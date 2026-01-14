@@ -1,4 +1,4 @@
-<?php require(__DIR__ . "/../partials/header.php"); ?>
+<?php require(__DIR__ . "/../../partials/header.php"); ?>
 
 <div class="min-vh-100 d-flex flex-column justify-content-center bg-light py-5">
     <div class="container">

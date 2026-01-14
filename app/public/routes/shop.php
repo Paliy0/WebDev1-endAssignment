@@ -10,7 +10,7 @@ $productController = new ProductController();
 
 Route::add('/shops', function () use ($shopController) {
     $shops = $shopController->getAllShops();
-    require(__DIR__ . "/../views/pages/shops.php");
+    require(__DIR__ . "/../views/pages/shops/shops.php");
 }, 'get');
 
 Route::add('/shops/([0-9]+)', function ($shopId) use ($shopController, $productController) {
@@ -21,9 +21,9 @@ Route::add('/shops/([0-9]+)', function ($shopId) use ($shopController, $productC
         exit;
     }
 
-    $products = $productController->getShopProducts($shop['user_id']);
+    $products = $productController->getShopProducts($shop['owner_id']);
 
-    require(__DIR__ . "/../views/pages/shop_detail.php");
+    require(__DIR__ . "/../views/pages/shops/shop_detail.php");
 }, 'get');
 
 Route::add('/shops/manage', function () use ($shopController, $authController) {
@@ -33,7 +33,7 @@ Route::add('/shops/manage', function () use ($shopController, $authController) {
     }
 
     $shops = $shopController->getUserShops();
-    require(__DIR__ . "/../views/pages/manage_shops.php");
+    require(__DIR__ . "/../views/pages/shops/manage_shops.php");
 }, 'get');
 
 Route::add('/shops/create', function () use ($authController) {
@@ -42,7 +42,7 @@ Route::add('/shops/create', function () use ($authController) {
         exit;
     }
 
-    require(__DIR__ . "/../views/pages/create_shop.php");
+    require(__DIR__ . "/../views/pages/shops/create_shop.php");
 }, 'get');
 
 Route::add('/shops/create', function () use ($shopController) {
@@ -73,13 +73,13 @@ Route::add('/shops/([0-9]+)/edit', function ($shopId) use ($shopController, $aut
     }
 
     $currentUser = $authController->getCurrentUser();
-    if ($shop['user_id'] != $currentUser['id']) {
+    if ($shop['owner_id'] != $currentUser['id']) {
         $_SESSION['error'] = 'You do not have permission to edit this shop.';
         header('Location: /shops/manage');
         exit;
     }
 
-    require(__DIR__ . "/../views/pages/edit_shop.php");
+    require(__DIR__ . "/../views/pages/shops/edit_shop.php");
 }, 'get');
 
 Route::add('/shops/([0-9]+)/edit', function ($shopId) use ($shopController) {

@@ -1,4 +1,4 @@
-<?php require(__DIR__ . "/../partials/header.php"); ?>
+<?php require(__DIR__ . "/../../partials/header.php"); ?>
 
 <main class="container mt-4">
     <div class="row mb-4">
@@ -85,4 +85,4 @@
     </div>
 </main>
 
-<?php require(__DIR__ . "/../partials/footer.php"); ?>
+<?php require(__DIR__ . "/../../partials/footer.php"); ?>
