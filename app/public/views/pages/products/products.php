@@ -37,7 +37,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <?php if (!empty($product['img'])): ?>
-                            <img src="<?= cloudinary_thumbnail($product['img']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>" style="height: 200px; object-fit: cover;">
+                            <img src="<?= cloudinary_thumbnail($product['img']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>" style="height: 200px; object-fit: contain;">
                         <?php else: ?>
                             <div class="bg-light text-center p-5">
                                 <i class="fa fa-image fa-4x text-muted"></i>
