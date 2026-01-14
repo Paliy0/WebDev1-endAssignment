@@ -12,11 +12,6 @@ class ProductModel extends BaseModel
         parent::__construct();
     }
 
-    /**
-     * Create a new product
-     * @param array $data Product data
-     * @return int|bool Product ID or false on failure
-     */
     public function create($data)
     {
         try {
@@ -56,12 +51,6 @@ class ProductModel extends BaseModel
         }
     }
 
-    /**
-     * Update an existing product
-     * @param int $id Product ID
-     * @param array $data Product data to update
-     * @return bool Success or failure
-     */
     public function update($id, $data)
     {
         try {
@@ -90,11 +79,6 @@ class ProductModel extends BaseModel
         }
     }
 
-    /**
-     * Delete a product
-     * @param int $id Product ID
-     * @return bool Success or failure
-     */
     public function delete($id)
     {
         try {
@@ -106,11 +90,6 @@ class ProductModel extends BaseModel
         }
     }
 
-    /**
-     * Get a product by ID
-     * @param int $id Product ID
-     * @return array|bool Product data or false if not found
-     */
     public function getById($id)
     {
         try {
@@ -129,11 +108,6 @@ class ProductModel extends BaseModel
         }
     }
 
-    /**
-     * Get all products
-     * @param array $filters Optional filters
-     * @return array Array of products
-     */
     public function getAll($filters = [])
     {
         try {
@@ -171,11 +145,6 @@ class ProductModel extends BaseModel
         }
     }
 
-    /**
-     * Get products by store ID
-     * @param int $storeId Store/User ID
-     * @return array Array of products
-     */
     public function getByStoreId($storeId)
     {
         try {
@@ -193,12 +162,6 @@ class ProductModel extends BaseModel
         }
     }
 
-    /**
-     * Update product stock
-     * @param int $id Product ID
-     * @param int $quantity Quantity to add (positive) or subtract (negative)
-     * @return bool Success or failure
-     */
     public function updateStock($id, $quantity)
     {
         try {

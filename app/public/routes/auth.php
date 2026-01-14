@@ -3,12 +3,10 @@
 use App\Controllers\AuthController;
 use App\Controllers\ShopController;
 
-// Login page route
 Route::add('/login', function () {
     require(__DIR__ . "/../views/pages/login.php");
 }, 'get');
 
-// Login form processing
 Route::add('/login', function () {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
@@ -27,12 +25,10 @@ Route::add('/login', function () {
     }
 }, 'post');
 
-// Register page route
 Route::add('/register', function () {
     require(__DIR__ . "/../views/pages/register.php");
 }, 'get');
 
-// Register form processing
 Route::add('/register', function () {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
@@ -53,7 +49,6 @@ Route::add('/register', function () {
     }
 }, 'post');
 
-// Logout route
 Route::add('/logout', function () {
     $authController = new AuthController();
     $authController->logout();
@@ -62,7 +57,6 @@ Route::add('/logout', function () {
     exit;
 }, 'get');
 
-// Profile page route
 Route::add('/profile', function () {
     $authController = new AuthController();
     $shopController = new ShopController();

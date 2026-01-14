@@ -4,12 +4,10 @@ use App\Controllers\ProductController;
 use App\Controllers\ShopController;
 use App\Controllers\AuthController;
 
-// Create controller instances
 $productController = new ProductController();
 $shopController = new ShopController();
 $authController = new AuthController();
 
-// Product listing page
 Route::add('/products', function () use ($productController) {
     $search = $_GET['search'] ?? '';
     $filters = [];
@@ -22,7 +20,6 @@ Route::add('/products', function () use ($productController) {
     require(__DIR__ . "/../views/pages/products.php");
 }, 'get');
 
-// Product detail page
 Route::add('/products/([0-9]+)', function ($productId) use ($productController) {
     $product = $productController->getProduct($productId);
 
@@ -34,7 +31,6 @@ Route::add('/products/([0-9]+)', function ($productId) use ($productController) 
     require(__DIR__ . "/../views/pages/product_detail.php");
 }, 'get');
 
-// Product management page (list all products for business owner)
 Route::add('/products/manage', function () use ($productController, $authController) {
     if (!$authController->isLoggedIn() || !$authController->hasRole('business')) {
         header('Location: /login');
@@ -47,7 +43,6 @@ Route::add('/products/manage', function () use ($productController, $authControl
     require(__DIR__ . "/../views/pages/manage_products.php");
 }, 'get');
 
-// Create product form
 Route::add('/products/create', function () use ($authController, $shopController) {
     if (!$authController->isLoggedIn() || !$authController->hasRole('business')) {
         header('Location: /login');
@@ -59,7 +54,6 @@ Route::add('/products/create', function () use ($authController, $shopController
     require(__DIR__ . "/../views/pages/create_product.php");
 }, 'get');
 
-// Create product form submission
 Route::add('/products/create', function () use ($productController) {
     $result = $productController->createProduct($_POST, $_FILES);
 

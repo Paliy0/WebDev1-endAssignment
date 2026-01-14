@@ -19,27 +19,19 @@ class AdminController
         $this->authController = new AuthController();
     }
 
-    /**
-     * Admin dashboard
-     */
     public function dashboard()
     {
-        // Redirect if not admin
         if (!$this->authController->hasRole('admin')) {
             header('Location: /');
             exit;
         }
 
-        // Simple dashboard, perhaps stats
         $userCount = count($this->userModel->getAll());
         $shopCount = count($this->shopModel->getAll());
 
         require __DIR__ . '/../views/pages/admin_dashboard.php';
     }
 
-    /**
-     * List all users
-     */
     public function getAllUsers()
     {
         if (!$this->authController->hasRole('admin')) {
@@ -51,9 +43,6 @@ class AdminController
         require __DIR__ . '/../views/pages/admin_users.php';
     }
 
-    /**
-     * Edit user form
-     */
     public function editUser($id)
     {
         if (!$this->authController->hasRole('admin')) {
@@ -88,21 +77,15 @@ class AdminController
             }
         }
 
-        // If GET request (not used with modal, but kept for backward compatibility)
         require __DIR__ . '/../views/pages/admin_user_edit.php';
     }
 
-    /**
-     * Update user
-     */
     private function updateUser($id, $data)
     {
-        // Validate email
         if (empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             return ['success' => false, 'message' => 'Valid email is required'];
         }
 
-        // Validate role
         $validRoles = ['customer', 'business'];
         if (empty($data['role']) || !in_array($data['role'], $validRoles)) {
             return ['success' => false, 'message' => 'Valid role is required'];
@@ -118,9 +101,6 @@ class AdminController
         return ['success' => true, 'message' => 'User updated successfully'];
     }
 
-    /**
-     * Delete user
-     */
     public function deleteUser($id)
     {
         if (!$this->authController->hasRole('admin')) {
@@ -146,9 +126,6 @@ class AdminController
         exit;
     }
 
-    /**
-     * Create user
-     */
     public function createUser()
     {
         if (!$this->authController->hasRole('admin')) {
@@ -159,28 +136,24 @@ class AdminController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST;
 
-            // Validate email
             if (empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
                 $_SESSION['error'] = 'Valid email is required';
                 header('Location: /admin/users');
                 exit;
             }
 
-            // Validate password
             if (empty($data['password']) || strlen($data['password']) < 8) {
                 $_SESSION['error'] = 'Password must be at least 8 characters';
                 header('Location: /admin/users');
                 exit;
             }
 
-            // Validate role
             if (empty($data['role']) || !in_array($data['role'], ['customer', 'business'])) {
                 $_SESSION['error'] = 'Valid role is required';
                 header('Location: /admin/users');
                 exit;
             }
 
-            // Check if email already exists
             $existingUser = $this->userModel->findByEmail($data['email']);
             if ($existingUser) {
                 $_SESSION['error'] = 'Email already exists';
@@ -188,7 +161,6 @@ class AdminController
                 exit;
             }
 
-            // Create user
             $userData = [
                 'email' => $data['email'],
                 'password' => password_hash($data['password'], PASSWORD_DEFAULT),
@@ -206,14 +178,10 @@ class AdminController
             exit;
         }
 
-        // If GET request, redirect to users list
         header('Location: /admin/users');
         exit;
     }
 
-    /**
-     * List all shops
-     */
     public function getAllShops()
     {
         if (!$this->authController->hasRole('admin')) {
@@ -223,7 +191,6 @@ class AdminController
 
         $shops = $this->shopModel->getAll();
 
-        // Get business users for owner dropdown in edit modal
         $businessUsers = array_filter($this->userModel->getAll(), function($user) {
             return $user['role'] === 'business';
         });
@@ -231,9 +198,6 @@ class AdminController
         require __DIR__ . '/../views/pages/admin_shops.php';
     }
 
-    /**
-     * Edit shop form
-     */
     public function editShop($id)
     {
         if (!$this->authController->hasRole('admin')) {
@@ -248,7 +212,6 @@ class AdminController
             exit;
         }
 
-        // Get business users for owner dropdown
         $businessUsers = array_filter($this->userModel->getAll(), function($user) {
             return $user['role'] === 'business';
         });
@@ -267,21 +230,15 @@ class AdminController
             }
         }
 
-        // If GET request (not used with modal, but kept for backward compatibility)
         require __DIR__ . '/../views/pages/admin_shop_edit.php';
     }
 
-    /**
-     * Update shop
-     */
     private function updateShop($id, $data)
     {
-        // Validate required fields
         if (empty($data['name'])) {
             return ['success' => false, 'message' => 'Name is required'];
         }
 
-        // Validate owner
         if (empty($data['owner_id'])) {
             return ['success' => false, 'message' => 'Owner is required'];
         }
@@ -292,7 +249,7 @@ class AdminController
             'address' => $data['address'] ?? '',
             'contact_email' => $data['contact_email'] ?? '',
             'contact_number' => $data['contact_number'] ?? '',
-            'user_id' => $data['owner_id']  // Note: owner_id in form, but column is user_id
+            'user_id' => $data['owner_id']
         ];
 
         $success = $this->shopModel->update($id, $updateData);
@@ -304,9 +261,6 @@ class AdminController
         return ['success' => true, 'message' => 'Shop updated successfully'];
     }
 
-    /**
-     * Delete shop
-     */
     public function deleteShop($id)
     {
         if (!$this->authController->hasRole('admin')) {
@@ -325,9 +279,6 @@ class AdminController
         exit;
     }
 
-    /**
-     * Create shop
-     */
     public function createShop()
     {
         if (!$this->authController->hasRole('admin')) {
@@ -338,21 +289,18 @@ class AdminController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST;
 
-            // Validate name
             if (empty($data['name'])) {
                 $_SESSION['error'] = 'Shop name is required';
                 header('Location: /admin/shops');
                 exit;
             }
 
-            // Validate owner
             if (empty($data['owner_id'])) {
                 $_SESSION['error'] = 'Owner is required';
                 header('Location: /admin/shops');
                 exit;
             }
 
-            // Verify owner exists and is a business user
             $owner = $this->userModel->findById($data['owner_id']);
             if (!$owner || $owner['role'] !== 'business') {
                 $_SESSION['error'] = 'Invalid owner selected';
@@ -360,7 +308,6 @@ class AdminController
                 exit;
             }
 
-            // Create shop
             $shopData = [
                 'name' => $data['name'],
                 'description' => $data['description'] ?? '',
@@ -381,7 +328,6 @@ class AdminController
             exit;
         }
 
-        // If GET request, redirect to shops list
         header('Location: /admin/shops');
         exit;
     }

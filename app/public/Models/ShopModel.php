@@ -12,32 +12,27 @@ class ShopModel extends BaseModel
         parent::__construct();
     }
 
-    /**
-     * Create a new shop
-     * @param array $data Shop data
-     * @return int|bool Shop ID or false on failure
-     */
     public function create($data)
     {
         try {
             $stmt = self::$pdo->prepare("
                 INSERT INTO shops (
-                    user_id, 
-                    name, 
-                    description, 
-                    address, 
-                    contact_email, 
-                    contact_number, 
-                    img, 
+                    user_id,
+                    name,
+                    description,
+                    address,
+                    contact_email,
+                    contact_number,
+                    img,
                     created_at
                 ) VALUES (
-                    :user_id, 
-                    :name, 
-                    :description, 
-                    :address, 
-                    :contact_email, 
-                    :contact_number, 
-                    :img, 
+                    :user_id,
+                    :name,
+                    :description,
+                    :address,
+                    :contact_email,
+                    :contact_number,
+                    :img,
                     NOW()
                 )
             ");
@@ -59,12 +54,6 @@ class ShopModel extends BaseModel
         }
     }
 
-    /**
-     * Update an existing shop
-     * @param int $id Shop ID
-     * @param array $data Shop data to update
-     * @return bool Success or failure
-     */
     public function update($id, $data)
     {
         try {
@@ -93,11 +82,6 @@ class ShopModel extends BaseModel
         }
     }
 
-    /**
-     * Delete a shop
-     * @param int $id Shop ID
-     * @return bool Success or failure
-     */
     public function delete($id)
     {
         try {
@@ -109,16 +93,11 @@ class ShopModel extends BaseModel
         }
     }
 
-    /**
-     * Get a shop by ID
-     * @param int $id Shop ID
-     * @return array|bool Shop data or false if not found
-     */
     public function getById($id)
     {
         try {
             $stmt = self::$pdo->prepare("
-                SELECT s.*, u.email as owner_email 
+                SELECT s.*, u.email as owner_email
                 FROM shops s
                 JOIN users u ON s.user_id = u.user_id
                 WHERE s.shop_id = :shop_id
@@ -132,15 +111,11 @@ class ShopModel extends BaseModel
         }
     }
 
-    /**
-     * Get all shops
-     * @return array Array of shops
-     */
     public function getAll()
     {
         try {
             $stmt = self::$pdo->prepare("
-                SELECT s.*, u.email as owner_email 
+                SELECT s.*, u.email as owner_email
                 FROM shops s
                 JOIN users u ON s.user_id = u.user_id
                 ORDER BY s.created_at DESC
@@ -154,11 +129,6 @@ class ShopModel extends BaseModel
         }
     }
 
-    /**
-     * Get shops by user ID
-     * @param int $userId User ID
-     * @return array Array of shops
-     */
     public function getByUserId($userId)
     {
         try {
@@ -176,12 +146,6 @@ class ShopModel extends BaseModel
         }
     }
 
-    /**
-     * Check if user owns shop
-     * @param int $shopId Shop ID
-     * @param int $userId User ID
-     * @return bool True if user owns shop, false otherwise
-     */
     public function isOwner($shopId, $userId)
     {
         try {
