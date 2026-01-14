@@ -43,7 +43,7 @@
                                 <div class="mb-3">
                                     <label class="form-label">Current Image</label>
                                     <div>
-                                        <img src="<?= htmlspecialchars($product['img']) ?>" class="img-thumbnail" style="max-height: 200px;" alt="<?= htmlspecialchars($product['name']) ?>">
+                                        <img src="<?= cloudinary_thumbnail($product['img']) ?>" class="img-thumbnail" style="max-height: 200px;" alt="<?= htmlspecialchars($product['name']) ?>">
                                     </div>
                                 </div>
                             <?php endif; ?>

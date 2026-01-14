@@ -4,6 +4,7 @@ require_once(__DIR__ . "/../vendor/autoload.php");
 
 require_once(__DIR__ . "/lib/env.php");
 require_once(__DIR__ . "/lib/error_reporting.php");
+require_once(__DIR__ . "/lib/image_helpers.php");
 
 session_start();
 

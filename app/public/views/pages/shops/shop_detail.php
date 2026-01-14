@@ -4,7 +4,7 @@
     <div class="row mb-4">
         <div class="col-md-4">
             <?php if (!empty($shop['img'])): ?>
-                <img src="<?= htmlspecialchars($shop['img']) ?>" class="img-fluid rounded" alt="<?= htmlspecialchars($shop['name']) ?>">
+                <img src="<?= cloudinary_thumbnail($shop['img'], false) ?>" class="img-fluid rounded" alt="<?= htmlspecialchars($shop['name']) ?>">
             <?php else: ?>
                 <div class="bg-light text-center p-5 rounded">
                     <i class="fa fa-store fa-5x text-muted"></i>
@@ -48,7 +48,7 @@
                 <div class="col-md-3 mb-4">
                     <div class="card h-100">
                         <?php if (!empty($product['img'])): ?>
-                            <img src="<?= htmlspecialchars($product['img']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>" style="height: 180px; object-fit: cover;">
+                            <img src="<?= cloudinary_thumbnail($product['img']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>" style="height: 180px; object-fit: cover;">
                         <?php else: ?>
                             <div class="bg-light text-center p-4">
                                 <i class="fa fa-image fa-3x text-muted"></i>

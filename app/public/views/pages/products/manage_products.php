@@ -49,7 +49,7 @@
                         <tr>
                             <td>
                                 <?php if (!empty($product['img'])): ?>
-                                    <img src="<?= htmlspecialchars($product['img']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" style="width: 50px; height: 50px; object-fit: cover;" class="img-thumbnail">
+                                    <img src="<?= cloudinary_thumbnail($product['img']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" style="width: 50px; height: 50px; object-fit: cover;" class="img-thumbnail">
                                 <?php else: ?>
                                     <div class="bg-light text-center" style="width: 50px; height: 50px;">
                                         <i class="fa fa-image text-muted"></i>

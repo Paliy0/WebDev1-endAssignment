@@ -20,7 +20,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <?php if (!empty($shop['img'])): ?>
-                            <img src="<?= htmlspecialchars($shop['img']) ?>" class="card-img-top" alt="<?= htmlspecialchars($shop['name']) ?>" style="height: 200px; object-fit: cover;">
+                            <img src="<?= cloudinary_thumbnail($shop['img']) ?>" class="card-img-top" alt="<?= htmlspecialchars($shop['name']) ?>" style="height: 200px; object-fit: cover;">
                         <?php else: ?>
                             <div class="bg-light text-center p-5">
                                 <i class="fa fa-store fa-4x text-muted"></i>

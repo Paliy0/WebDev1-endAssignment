@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-md-6">
             <?php if (!empty($product['img'])): ?>
-                <img src="<?= htmlspecialchars($product['img']) ?>" class="img-fluid rounded" alt="<?= htmlspecialchars($product['name']) ?>">
+                <img src="<?= cloudinary_thumbnail($product['img'], false) ?>" class="img-fluid rounded" alt="<?= htmlspecialchars($product['name']) ?>">
             <?php else: ?>
                 <div class="bg-light text-center p-5 rounded">
                     <i class="fa fa-image fa-5x text-muted"></i>

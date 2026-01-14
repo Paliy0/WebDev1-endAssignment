@@ -39,7 +39,7 @@
                         <div class="row g-0">
                             <div class="col-md-4">
                                 <?php if (!empty($shop['img'])): ?>
-                                    <img src="<?= htmlspecialchars($shop['img']) ?>" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="<?= htmlspecialchars($shop['name']) ?>">
+                                    <img src="<?= cloudinary_thumbnail($shop['img']) ?>" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="<?= htmlspecialchars($shop['name']) ?>">
                                 <?php else: ?>
                                     <div class="bg-light d-flex align-items-center justify-content-center h-100 rounded-start">
                                         <i class="fa fa-store fa-3x text-muted"></i>
