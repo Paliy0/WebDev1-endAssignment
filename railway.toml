@@ -1,6 +1,5 @@
 [build]
-builder = "dockerfile"
-buildCommand = "docker build ."
+builder = "DOCKERFILE"
 
 [deploy]
 startCommand = "php-fpm -D && nginx -g 'daemon off;'"
