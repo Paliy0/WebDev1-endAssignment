@@ -18,7 +18,7 @@
         <div class="row">
             <?php foreach ($shops as $shop): ?>
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100">
+                    <a href="/shops/<?= $shop['shop_id'] ?>" class="card h-100 text-decoration-none text-dark">
                         <?php if (!empty($shop['img'])): ?>
                             <img src="<?= cloudinary_thumbnail($shop['img']) ?>" class="card-img-top" alt="<?= htmlspecialchars($shop['name']) ?>" style="height: 200px; object-fit: cover;">
                         <?php else: ?>
@@ -26,16 +26,12 @@
                                 <i class="fa fa-store fa-4x text-muted"></i>
                             </div>
                         <?php endif; ?>
-                        
+
                         <div class="card-body">
                             <h5 class="card-title"><?= htmlspecialchars($shop['name']) ?></h5>
                             <p class="card-text text-truncate"><?= htmlspecialchars($shop['description']) ?></p>
                         </div>
-                        
-                        <div class="card-footer">
-                            <a href="/shops/<?= $shop['shop_id'] ?>" class="btn btn-primary">View Shop</a>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             <?php endforeach; ?>
         </div>
