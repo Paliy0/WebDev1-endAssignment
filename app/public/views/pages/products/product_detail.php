@@ -52,11 +52,7 @@
 
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="quantity">Quantity</label>
-                        <select class="form-select" id="quantity" name="quantity">
-                            <?php for ($i = 1; $i <= min(10, $product['stock']); $i++): ?>
-                                <option value="<?= $i ?>"><?= $i ?></option>
-                            <?php endfor; ?>
-                        </select>
+                        <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1" max="<?= $product['stock'] ?>">
                         <button type="submit" class="btn btn-success">Add to Cart</button>
                     </div>
                 </form>
