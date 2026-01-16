@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ShopModel;
 use App\Controllers\AuthController;
+use Cloudinary\Api\Upload\UploadApi;
 
 class ShopController
 {
@@ -71,17 +72,20 @@ class ShopController
 
         $imgPath = '';
         if ($file && isset($file['image']) && $file['image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = __DIR__ . '/../public/uploads/shops/';
-
-            if (!file_exists($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
-            }
-
-            $fileName = uniqid() . '_' . basename($file['image']['name']);
-            $uploadPath = $uploadDir . $fileName;
-
-            if (move_uploaded_file($file['image']['tmp_name'], $uploadPath)) {
-                $imgPath = '/uploads/shops/' . $fileName;
+            try {
+                $upload = new UploadApi();
+                $result = $upload->upload($file['image']['tmp_name'], [
+                    'folder' => 'shops',
+                    'public_id' => 'shop_' . time(),
+                    'overwrite' => true
+                ]);
+                $imgPath = $result['secure_url'];
+            } catch (\Exception $e) {
+                error_log('Cloudinary upload error: ' . $e->getMessage());
+                return [
+                    'success' => false,
+                    'message' => 'Image upload failed: ' . $e->getMessage()
+                ];
             }
         }
 
@@ -145,24 +149,31 @@ class ShopController
         }
 
         if ($file && isset($file['image']) && $file['image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = __DIR__ . '/../public/uploads/shops/';
-
-            if (!file_exists($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
-            }
-
-            $fileName = uniqid() . '_' . basename($file['image']['name']);
-            $uploadPath = $uploadDir . $fileName;
-
-            if (move_uploaded_file($file['image']['tmp_name'], $uploadPath)) {
-                $data['img'] = '/uploads/shops/' . $fileName;
+            try {
+                $upload = new UploadApi();
+                $result = $upload->upload($file['image']['tmp_name'], [
+                    'folder' => 'shops',
+                    'public_id' => 'shop_' . time(),
+                    'overwrite' => true
+                ]);
+                $data['img'] = $result['secure_url'];
 
                 if (!empty($shop['img'])) {
-                    $oldImagePath = __DIR__ . '/../public' . $shop['img'];
-                    if (file_exists($oldImagePath)) {
-                        unlink($oldImagePath);
+                    $publicId = extract_cloudinary_public_id($shop['img']);
+                    if ($publicId) {
+                        try {
+                            $upload->destroy($publicId, ['resource_type' => 'image']);
+                        } catch (\Exception $e) {
+                            error_log('Failed to delete old Cloudinary image: ' . $e->getMessage());
+                        }
                     }
                 }
+            } catch (\Exception $e) {
+                error_log('Cloudinary upload error: ' . $e->getMessage());
+                return [
+                    'success' => false,
+                    'message' => 'Image upload failed: ' . $e->getMessage()
+                ];
             }
         }
 
@@ -207,9 +218,14 @@ class ShopController
         }
 
         if (!empty($shop['img'])) {
-            $imagePath = __DIR__ . '/../public' . $shop['img'];
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
+            $publicId = extract_cloudinary_public_id($shop['img']);
+            if ($publicId) {
+                try {
+                    $upload = new UploadApi();
+                    $upload->destroy($publicId, ['resource_type' => 'image']);
+                } catch (\Exception $e) {
+                    error_log('Failed to delete Cloudinary image: ' . $e->getMessage());
+                }
             }
         }
 
