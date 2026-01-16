@@ -20,7 +20,14 @@ require_once(__DIR__ . "/routes/admin.php");
 
 use Cloudinary\Configuration\Configuration;
 
-Configuration::instance('cloudinary://974684973245881:XxDkhqEcnzOVHX2EHLez6D8HLQg@paliyo?secure=true');
+// Configure Cloudinary using environment variables
+$cloudinaryUrl = sprintf(
+    'cloudinary://%s:%s@%s?secure=true',
+    $_ENV['CLOUDINARY_API_KEY'],
+    $_ENV['CLOUDINARY_API_SECRET'],
+    $_ENV['CLOUDINARY_CLOUD_NAME']
+);
+Configuration::instance($cloudinaryUrl);
 
 Route::pathNotFound(function ($path) {
     header('HTTP/1.0 404 Not Found');
