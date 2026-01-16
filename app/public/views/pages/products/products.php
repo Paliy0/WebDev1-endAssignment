@@ -36,7 +36,7 @@
             <div class="row">
                 <?php foreach ($products as $product): ?>
                     <div class="col-md-4 mb-4">
-                        <div class="card h-100">
+                        <a href="/products/<?= $product['product_id'] ?>" class="card h-100 text-decoration-none text-dark">
                             <?php if (!empty($product['img'])): ?>
                                 <img src="<?= cloudinary_thumbnail($product['img']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>" style="height: 200px; object-fit: contain;">
                             <?php else: ?>
@@ -49,23 +49,17 @@
                                 <h5 class="card-title"><?= $product['name'] ?></h5>
                                 <p class="card-text text-truncate"><?= $product['description'] ?></p>
                                 <p class="card-text"><strong>$<?= number_format($product['price'], 2) ?></strong></p>
-                                <p class="text-muted">Sold by: <a href="/shops/<?= $product['store_id'] ?>"><?= $product['shop_name'] ?></a></p>
+                                <p class="text-muted">Sold by: <?= $product['shop_name'] ?></p>
                             </div>
 
-                            <div class="card-footer d-flex justify-content-between">
-                                <a href="/products/<?= $product['product_id'] ?>" class="btn btn-primary">View Details</a>
-
+                            <div class="card-footer">
                                 <?php if ($product['stock'] > 0): ?>
-                                    <form action="/cart/add" method="post">
-                                        <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
-                                        <input type="hidden" name="quantity" value="1">
-                                        <button type="submit" class="btn btn-success">Add to Cart</button>
-                                    </form>
+                                    <span class="text-success">In Stock</span>
                                 <?php else: ?>
-                                    <button class="btn btn-secondary" disabled>Out of Stock</button>
+                                    <span class="text-secondary">Out of Stock</span>
                                 <?php endif; ?>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 <?php endforeach; ?>
             </div>

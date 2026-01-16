@@ -15,30 +15,25 @@ function createProductCard(product) {
     ? `<img src="${escapeHtml(product.img)}" class="card-img-top" alt="${escapeHtml(product.name)}" style="height: 200px; object-fit: contain;">`
     : `<div class="bg-light text-center p-5"><i class="fa fa-image fa-4x text-muted"></i></div>`;
 
-  const stockButton =
+  const stockText =
     product.stock > 0
-      ? `<form action="/cart/add" method="post">
-               <input type="hidden" name="product_id" value="${product.product_id}">
-               <input type="hidden" name="quantity" value="1">
-               <button type="submit" class="btn btn-success">Add to Cart</button>
-           </form>`
-      : `<button class="btn btn-secondary" disabled>Out of Stock</button>`;
+      ? `<span class="text-success">In Stock</span>`
+      : `<span class="text-secondary">Out of Stock</span>`;
 
   return `
         <div class="col-md-4 mb-4">
-            <div class="card h-100">
+            <a href="/products/${product.product_id}" class="card h-100 text-decoration-none text-dark">
                 ${imageHTML}
                 <div class="card-body">
                     <h5 class="card-title">${escapeHtml(product.name)}</h5>
                     <p class="card-text text-truncate">${escapeHtml(product.description || "")}</p>
                     <p class="card-text"><strong>$${parseFloat(product.price).toFixed(2)}</strong></p>
-                    <p class="text-muted">Sold by: <a href="/shops/${product.store_id}">${escapeHtml(product.shop_name || "")}</a></p>
+                    <p class="text-muted">Sold by: ${escapeHtml(product.shop_name || "")}</p>
                 </div>
-                <div class="card-footer d-flex justify-content-between">
-                    <a href="/products/${product.product_id}" class="btn btn-primary">View Details</a>
-                    ${stockButton}
+                <div class="card-footer">
+                    ${stockText}
                 </div>
-            </div>
+            </a>
         </div>
     `;
 }
