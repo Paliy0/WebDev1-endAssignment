@@ -159,13 +159,13 @@ class UserModel extends BaseModel
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
             $stmt = self::$pdo->prepare("
-                UPDATE users 
-                SET password = :password 
-                WHERE id = :id
+                UPDATE users
+                SET password = :password
+                WHERE user_id = :user_id
             ");
 
             return $stmt->execute([
-                ':id' => $id,
+                ':user_id' => $id,
                 ':password' => $hashedPassword
             ]);
         } catch (PDOException $e) {
