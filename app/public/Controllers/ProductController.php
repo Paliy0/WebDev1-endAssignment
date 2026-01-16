@@ -33,7 +33,7 @@ class ProductController
 
     public function getShopProducts($shopId)
     {
-        return $this->productModel->getByStoreId($shopId);
+        return $this->productModel->getByShopId($shopId);
     }
 
     public function createProduct($data, $file = null)
@@ -97,7 +97,7 @@ class ProductController
         }
 
         $productData = [
-            'store_id' => $data['shop_id'],
+            'shop_id' => $data['shop_id'],
             'name' => $data['name'],
             'description' => $data['description'] ?? '',
             'price' => $data['price'],
@@ -139,7 +139,7 @@ class ProductController
         }
 
         $currentUser = $this->authController->getCurrentUser();
-        if ($product['store_id'] != $currentUser['id']) {
+        if ($product['shop_owner_id'] != $currentUser['id']) {
             return [
                 'success' => false,
                 'message' => 'You do not own this product'
@@ -217,7 +217,7 @@ class ProductController
         }
 
         $currentUser = $this->authController->getCurrentUser();
-        if ($product['store_id'] != $currentUser['id']) {
+        if ($product['shop_owner_id'] != $currentUser['id']) {
             return [
                 'success' => false,
                 'message' => 'You do not own this product'

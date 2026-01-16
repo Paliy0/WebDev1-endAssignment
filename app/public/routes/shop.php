@@ -21,7 +21,7 @@ Route::add('/shops/([0-9]+)', function ($shopId) use ($shopController, $productC
         exit;
     }
 
-    $products = $productController->getShopProducts($shop['owner_id']);
+    $products = $productController->getShopProducts($shop['shop_id']);
 
     require(__DIR__ . "/../views/pages/shops/shop_detail.php");
 }, 'get');

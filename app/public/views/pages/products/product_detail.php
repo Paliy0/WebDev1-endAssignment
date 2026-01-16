@@ -29,7 +29,7 @@
 
         <div class="col-md-6">
             <h1><?= htmlspecialchars($product['name']) ?></h1>
-            <p class="text-muted">Sold by: <a href="/shops/<?= $product['store_id'] ?>"><?= htmlspecialchars($product['shop_name']) ?></a></p>
+            <p class="text-muted">Sold by: <a href="/shops/<?= $product['shop_id'] ?>"><?= htmlspecialchars($product['shop_name']) ?></a></p>
 
             <div class="mb-3">
                 <h3>$<?= number_format($product['price'], 2) ?></h3>
@@ -62,7 +62,7 @@
 
             <div class="mt-4">
                 <a href="/products" class="btn btn-outline-primary">&laquo; Back to Products</a>
-                <a href="/shops/<?= $product['store_id'] ?>" class="btn btn-outline-secondary">More from this Shop</a>
+                <a href="/shops/<?= $product['shop_id'] ?>" class="btn btn-outline-secondary">More from this Shop</a>
             </div>
         </div>
     </div>

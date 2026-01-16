@@ -17,26 +17,26 @@ class ProductModel extends BaseModel
         try {
             $stmt = self::$pdo->prepare("
                 INSERT INTO products (
-                    store_id, 
-                    name, 
-                    description, 
-                    price, 
-                    stock, 
-                    img, 
+                    shop_id,
+                    name,
+                    description,
+                    price,
+                    stock,
+                    img,
                     created_at
                 ) VALUES (
-                    :store_id, 
-                    :name, 
-                    :description, 
-                    :price, 
-                    :stock, 
-                    :img, 
+                    :shop_id,
+                    :name,
+                    :description,
+                    :price,
+                    :stock,
+                    :img,
                     NOW()
                 )
             ");
 
             $stmt->execute([
-                ':store_id' => $data['store_id'],
+                ':shop_id' => $data['shop_id'],
                 ':name' => $data['name'],
                 ':description' => $data['description'],
                 ':price' => $data['price'],
@@ -94,9 +94,9 @@ class ProductModel extends BaseModel
     {
         try {
             $stmt = self::$pdo->prepare("
-                SELECT p.*, s.name as shop_name 
+                SELECT p.*, s.name as shop_name, s.owner_id as shop_owner_id
                 FROM products p
-                JOIN shops s ON p.store_id = s.owner_id
+                JOIN shops s ON p.shop_id = s.shop_id
                 WHERE p.product_id = :product_id
             ");
 
@@ -112,19 +112,19 @@ class ProductModel extends BaseModel
     {
         try {
             $sql = "
-            SELECT p.*, s.shop_id, u.email as shop_email, s.name as shop_name
+            SELECT p.*, s.shop_id, s.owner_id as shop_owner_id, u.email as shop_email, s.name as shop_name
             FROM products p
-            JOIN users u ON p.store_id = u.user_id
-            LEFT JOIN shops s ON p.store_id = s.owner_id
+            JOIN shops s ON p.shop_id = s.shop_id
+            JOIN users u ON s.owner_id = u.user_id
             WHERE 1=1
             ";
 
             $params = [];
 
             // Add shop filter if provided
-            if (isset($filters['store_id'])) {
-                $sql .= " AND p.store_id = :store_id";
-                $params[':store_id'] = $filters['store_id'];
+            if (isset($filters['shop_id'])) {
+                $sql .= " AND p.shop_id = :shop_id";
+                $params[':shop_id'] = $filters['shop_id'];
             }
 
             // Add search filter if provided
@@ -145,16 +145,16 @@ class ProductModel extends BaseModel
         }
     }
 
-    public function getByStoreId($storeId)
+    public function getByShopId($shopId)
     {
         try {
             $stmt = self::$pdo->prepare("
                 SELECT * FROM products
-                WHERE store_id = :store_id
+                WHERE shop_id = :shop_id
                 ORDER BY created_at DESC
             ");
 
-            $stmt->execute([':store_id' => $storeId]);
+            $stmt->execute([':shop_id' => $shopId]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             error_log($e->getMessage());
