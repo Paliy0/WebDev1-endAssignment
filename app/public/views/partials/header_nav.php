@@ -1,10 +1,13 @@
 <?php
 
 use App\Controllers\AuthController;
+use App\Controllers\CartController;
 
 $authController = new AuthController();
+$cartController = new CartController();
 $isLoggedIn = $authController->isLoggedIn();
 $currentUser = $isLoggedIn ? $authController->getCurrentUser() : null;
+$cartCount = $cartController->getCartCount();
 ?>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary bg-white shadow-sm">
@@ -62,25 +65,22 @@ $currentUser = $isLoggedIn ? $authController->getCurrentUser() : null;
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow">
                             <li><a class="dropdown-item" href="/profile"><i class="bi bi-person me-2"></i>My Profile</a></li>
-                            <?php if ($currentUser['role'] === 'customer'): ?>
-                                <li><a class="dropdown-item" href="/orders">My Orders</a></li>
-                                <li><a class="dropdown-item" href="/cart">My Cart</a></li>
-                            <?php endif; ?>
+                            <li><a class="dropdown-item" href="/orders"><i class="bi bi-bag me-2"></i>My Orders</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
                         </ul>
                     </div>
-                    <?php if ($currentUser['role'] === 'customer'): ?>
-                        <a href="/cart" class="btn btn-link position-relative ms-2">
-                            <i class="bi bi-cart fs-5"></i>
+                    <a href="/cart" class="btn btn-link position-relative ms-2">
+                        <i class="bi bi-cart fs-5"></i>
+                        <?php if ($cartCount > 0): ?>
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                0
+                                <?= $cartCount ?>
                                 <span class="visually-hidden">items in cart</span>
                             </span>
-                        </a>
-                    <?php endif; ?>
+                        <?php endif; ?>
+                    </a>
                 <?php else: ?>
                     <a class="btn btn-outline-primary me-2" href="/login">
                         <i class="bi bi-box-arrow-in-right me-1"></i>Login

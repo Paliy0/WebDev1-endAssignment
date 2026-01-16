@@ -17,6 +17,7 @@ require_once(__DIR__ . "/routes/product.php");
 require_once(__DIR__ . "/routes/shop.php");
 require_once(__DIR__ . "/routes/customer.php");
 require_once(__DIR__ . "/routes/admin.php");
+require_once(__DIR__ . "/routes/cart.php");
 require_once(__DIR__ . "/routes/api.php");
 
 use Cloudinary\Configuration\Configuration;
