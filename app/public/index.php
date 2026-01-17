@@ -22,7 +22,7 @@ require_once(__DIR__ . "/routes/api.php");
 
 use Cloudinary\Configuration\Configuration;
 
-Configuration::instance('cloudinary://974684973245881:XxDkhqEcnzOVHX2EHLez6D8HLQg@paliyo?secure=true');
+Configuration::instance($_ENV['CLOUDINARY_URL']);
 
 Route::pathNotFound(function ($path) {
     header('HTTP/1.0 404 Not Found');
