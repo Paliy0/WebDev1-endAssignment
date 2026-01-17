@@ -1,45 +1,47 @@
 <?php require(__DIR__ . "/../../partials/header.php"); ?>
 
-<div class="min-vh-100 d-flex flex-column justify-content-center bg-light py-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-                <div class="text-center mb-4">
-                    <h1 class="h2 text-primary fw-bold">Edit User</h1>
-                </div>
+<main class="main" style="padding: var(--space-8) 0 var(--space-16);">
+    <div class="container" style="max-width: 480px;">
+        <nav style="margin-bottom: var(--space-6);">
+            <a href="/admin/users" style="color: var(--muted-foreground); font-size: 0.875rem; display: flex; align-items: center; gap: var(--space-2);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                Back to Manage Users
+            </a>
+        </nav>
 
-                <div class="card shadow-sm border-0">
-                    <div class="card-body p-4 p-lg-5">
-                        <?php if (isset($_SESSION['error'])): ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                                <?= $_SESSION['error']; ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        <?php endif; ?>
+        <div style="margin-bottom: var(--space-8);">
+            <h1 class="heading-section">Edit User</h1>
+        </div>
 
-                        <form method="post" action="">
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="role" class="form-label">Role</label>
-                                <select class="form-select" id="role" name="role" required>
-                                    <option value="customer" <?= $user['role'] === 'customer' ? 'selected' : '' ?>>Customer</option>
-                                    <option value="business" <?= $user['role'] === 'business' ? 'selected' : '' ?>>Business</option>
-                                </select>
-                            </div>
-
-                            <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-primary py-2">Update User</button>
-                                <a href="/admin/users" class="btn btn-secondary">Cancel</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="alert alert-error" style="margin-bottom: var(--space-6);">
+                <?= $_SESSION['error']; ?>
+                <?php unset($_SESSION['error']); ?>
             </div>
+        <?php endif; ?>
+
+        <div class="cta-card">
+            <form method="post" action="">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-input" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="role" class="form-label">Role</label>
+                    <select class="form-input form-select" id="role" name="role" required>
+                        <option value="customer" <?= $user['role'] === 'customer' ? 'selected' : '' ?>>Customer</option>
+                        <option value="business" <?= $user['role'] === 'business' ? 'selected' : '' ?>>Business</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-6);">
+                    <button type="submit" class="btn btn-primary btn-full">Update User</button>
+                    <a href="/admin/users" class="btn btn-outline btn-full">Cancel</a>
+                </div>
+            </form>
         </div>
     </div>
-</div>
+</main>
+
+<?php require(__DIR__ . "/../../partials/footer.php"); ?>

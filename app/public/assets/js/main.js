@@ -12,29 +12,33 @@ function escapeHtml(text) {
 // Render a single product card using template literal
 function createProductCard(product) {
   const imageHTML = product.img
-    ? `<img src="${escapeHtml(product.img)}" class="card-img-top" alt="${escapeHtml(product.name)}" style="height: 200px; object-fit: contain;">`
-    : `<div class="bg-light text-center p-5"><i class="fa fa-image fa-4x text-muted"></i></div>`;
+    ? `<img src="${escapeHtml(product.img)}" class="product-image" alt="${escapeHtml(product.name)}">`
+    : `<div style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--secondary);">
+         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="color: var(--muted-foreground);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+       </div>`;
 
   const stockText =
     product.stock > 0
-      ? `<span class="text-success">In Stock</span>`
-      : `<span class="text-secondary">Out of Stock</span>`;
+      ? `<span style="color: var(--success, #22c55e);">In Stock (${product.stock})</span>`
+      : `<span style="color: var(--muted-foreground);">Out of Stock</span>`;
 
   return `
-        <div class="col-md-4 mb-4">
-            <a href="/products/${product.product_id}" class="card h-100 text-decoration-none text-dark">
+        <a href="/products/${product.product_id}" class="product-card" style="text-decoration: none;">
+            <div class="product-image-container">
                 ${imageHTML}
-                <div class="card-body">
-                    <h5 class="card-title">${escapeHtml(product.name)}</h5>
-                    <p class="card-text text-truncate">${escapeHtml(product.description || "")}</p>
-                    <p class="card-text"><strong>$${parseFloat(product.price).toFixed(2)}</strong></p>
-                    <p class="text-muted">Sold by: ${escapeHtml(product.shop_name || "")}</p>
+                <div class="quick-add-overlay">
+                    <span class="btn btn-primary btn-sm btn-full">View Details</span>
                 </div>
-                <div class="card-footer">
+            </div>
+            <div class="product-info">
+                <p class="product-shop">${escapeHtml(product.shop_name || "")}</p>
+                <h3 class="product-name">${escapeHtml(product.name)}</h3>
+                <p class="product-price">$${parseFloat(product.price).toFixed(2)}</p>
+                <p style="font-size: 0.75rem; margin-top: var(--space-2);">
                     ${stockText}
-                </div>
-            </a>
-        </div>
+                </p>
+            </div>
+        </a>
     `;
 }
 
@@ -44,14 +48,17 @@ function displayProducts(products) {
   if (!container) return;
 
   if (!products || products.length === 0) {
-    container.innerHTML =
-      '<div class="alert alert-info">No products found.</div>';
+    container.innerHTML = `
+      <div class="cta-card" style="text-align: center; padding: var(--space-16);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto var(--space-4); color: var(--muted-foreground);"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        <p class="body-text text-muted">No products found.</p>
+      </div>`;
     return;
   }
 
   // Use map to create HTML for each product, then join
   const html = products.map((product) => createProductCard(product)).join("");
-  container.innerHTML = `<div class="row">${html}</div>`;
+  container.innerHTML = `<div class="product-grid">${html}</div>`;
 }
 
 // Fetch products from API using fetch

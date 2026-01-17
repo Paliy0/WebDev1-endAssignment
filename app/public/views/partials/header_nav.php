@@ -10,86 +10,190 @@ $currentUser = $isLoggedIn ? $authController->getCurrentUser() : null;
 $cartCount = $cartController->getCartCount();
 ?>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary bg-white shadow-sm">
+<header class="header">
     <div class="container">
-        <a class="navbar-brand fw-bold text-primary" href="/">
-            <i class="bi bi-shop me-2"></i>PHP Marketplace
-        </a>
+        <div class="header-inner">
+            <a href="/" class="logo">Curated</a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/products">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/shops">Shops</a>
-                </li>
+            <nav class="nav">
+                <a href="/products" class="nav-link">Products</a>
+                <a href="/shops" class="nav-link">Shops</a>
                 <?php if ($isLoggedIn && $currentUser['role'] === 'business'): ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Manage Business
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/shops/manage">My Shops</a></li>
-                            <li><a class="dropdown-item" href="/products/manage">My Products</a></li>
-                        </ul>
-                    </li>
-                 <?php endif; ?>
-                 <?php if ($isLoggedIn && $currentUser['role'] === 'admin'): ?>
-                     <li class="nav-item dropdown">
-                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                             Admin Panel
-                         </a>
-                         <ul class="dropdown-menu">
-                             <li><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
-                             <li><a class="dropdown-item" href="/admin/users">Manage Users</a></li>
-                             <li><a class="dropdown-item" href="/admin/shops">Manage Shops</a></li>
-                         </ul>
-                     </li>
-                 <?php endif; ?>
-             </ul>
+                    <a href="/shops/manage" class="nav-link">My Shops</a>
+                    <a href="/products/manage" class="nav-link">My Products</a>
+                <?php endif; ?>
+                <?php if ($isLoggedIn && $currentUser['role'] === 'admin'): ?>
+                    <a href="/admin/dashboard" class="nav-link">Admin</a>
+                <?php endif; ?>
+            </nav>
 
-            <div class="d-flex align-items-center">
+            <div class="header-actions">
                 <?php if ($isLoggedIn): ?>
-                    <div class="dropdown">
-                        <button class="btn btn-outline-primary dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-circle me-2"></i>
-                            <?= $currentUser['email']; ?>
+                    <div class="dropdown-wrapper">
+                        <button class="icon-button" aria-label="Account" onclick="toggleAccountMenu()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow">
-                            <li><a class="dropdown-item" href="/profile"><i class="bi bi-person me-2"></i>My Profile</a></li>
-                            <li><a class="dropdown-item" href="/orders"><i class="bi bi-bag me-2"></i>My Orders</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
-                        </ul>
+                        <div class="dropdown-menu" id="account-menu">
+                            <div class="dropdown-user"><?= htmlspecialchars($currentUser['email']); ?></div>
+                            <a href="/profile" class="dropdown-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                My Profile
+                            </a>
+                            <a href="/orders" class="dropdown-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                                My Orders
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/logout" class="dropdown-item text-accent">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                Logout
+                            </a>
+                        </div>
                     </div>
-                    <a href="/cart" class="btn btn-link position-relative ms-2">
-                        <i class="bi bi-cart fs-5"></i>
+                    <a href="/cart" class="icon-button cart-button-wrapper" aria-label="Cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
                         <?php if ($cartCount > 0): ?>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                <?= $cartCount ?>
-                                <span class="visually-hidden">items in cart</span>
-                            </span>
+                            <span class="cart-badge" id="cart-count"><?= $cartCount ?></span>
                         <?php endif; ?>
                     </a>
                 <?php else: ?>
-                    <a class="btn btn-outline-primary me-2" href="/login">
-                        <i class="bi bi-box-arrow-in-right me-1"></i>Login
-                    </a>
-                    <a class="btn btn-primary" href="/register">
-                        <i class="bi bi-person-plus me-1"></i>Register
-                    </a>
+                    <a href="/login" class="btn btn-outline">Login</a>
+                    <a href="/register" class="btn btn-primary">Sign Up</a>
                 <?php endif; ?>
+
+                <button class="mobile-menu-toggle" aria-label="Menu" onclick="toggleMobileMenu()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg>
+                </button>
             </div>
         </div>
     </div>
-</nav>
+</header>
+
+<div class="mobile-menu-overlay" id="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
+<aside class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+        <a href="/" class="logo">Curated</a>
+        <button class="icon-button" onclick="closeMobileMenu()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        </button>
+    </div>
+    <nav class="mobile-menu-nav">
+        <a href="/products" class="nav-link">Products</a>
+        <a href="/shops" class="nav-link">Shops</a>
+        <?php if ($isLoggedIn && $currentUser['role'] === 'business'): ?>
+            <a href="/shops/manage" class="nav-link">My Shops</a>
+            <a href="/products/manage" class="nav-link">My Products</a>
+        <?php endif; ?>
+        <?php if ($isLoggedIn && $currentUser['role'] === 'admin'): ?>
+            <a href="/admin/dashboard" class="nav-link">Admin Panel</a>
+        <?php endif; ?>
+        <?php if ($isLoggedIn): ?>
+            <a href="/profile" class="nav-link">My Profile</a>
+            <a href="/orders" class="nav-link">My Orders</a>
+            <a href="/cart" class="nav-link">My Cart</a>
+            <a href="/logout" class="nav-link text-accent">Logout</a>
+        <?php else: ?>
+            <a href="/login" class="nav-link">Login</a>
+            <a href="/register" class="nav-link">Sign Up</a>
+        <?php endif; ?>
+    </nav>
+</aside>
+
+<style>
+.dropdown-wrapper {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: var(--space-2);
+    min-width: 200px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-elevated);
+    padding: var(--space-2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: 100;
+}
+
+.dropdown-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-user {
+    padding: var(--space-3) var(--space-3);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--space-2);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    font-size: 0.875rem;
+    color: var(--foreground);
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background: var(--secondary);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: var(--border);
+    margin: var(--space-2) 0;
+}
+</style>
+
+<script>
+function toggleAccountMenu() {
+    const menu = document.getElementById('account-menu');
+    menu.classList.toggle('open');
+}
+
+function toggleMobileMenu() {
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const menu = document.getElementById('mobile-menu');
+    overlay.classList.add('open');
+    menu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeMobileMenu() {
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const menu = document.getElementById('mobile-menu');
+    overlay.classList.remove('open');
+    menu.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('click', function(e) {
+    const accountMenu = document.getElementById('account-menu');
+    const wrapper = document.querySelector('.dropdown-wrapper');
+    if (accountMenu && wrapper && !wrapper.contains(e.target)) {
+        accountMenu.classList.remove('open');
+    }
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeMobileMenu();
+        const accountMenu = document.getElementById('account-menu');
+        if (accountMenu) accountMenu.classList.remove('open');
+    }
+});
+</script>

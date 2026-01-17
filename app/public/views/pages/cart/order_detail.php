@@ -1,34 +1,37 @@
 <?php require(__DIR__ . "/../../partials/header.php"); ?>
 
-<main class="container mt-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/orders">My Orders</a></li>
-            <li class="breadcrumb-item active">Order #<?= $order['order_id'] ?></li>
-        </ol>
-    </nav>
+<main class="main" style="padding: var(--space-8) 0 var(--space-16);">
+    <div class="container" style="max-width: 900px;">
+        <nav style="margin-bottom: var(--space-6);">
+            <a href="/orders" style="color: var(--muted-foreground); font-size: 0.875rem; display: flex; align-items: center; gap: var(--space-2);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                Back to My Orders
+            </a>
+        </nav>
 
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Order #<?= $order['order_id'] ?></h5>
-                    <?php
-                    $statusClass = match($order['status']) {
-                        'confirmed' => 'bg-success',
-                        'pending' => 'bg-warning',
-                        'cancelled' => 'bg-danger',
-                        default => 'bg-secondary'
-                    };
-                    ?>
-                    <span class="badge <?= $statusClass ?>"><?= ucfirst($order['status']) ?></span>
-                </div>
-                <div class="card-body">
-                    <p><strong>Date:</strong> <?= date('F j, Y g:i A', strtotime($order['created_at'])) ?></p>
+        <div class="cta-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6); flex-wrap: wrap; gap: var(--space-3);">
+                <h1 class="heading-section" style="margin: 0;">Order #<?= $order['order_id'] ?></h1>
+                <?php
+                $statusClass = match($order['status']) {
+                    'confirmed' => 'badge-success',
+                    'pending' => 'badge-warning',
+                    'cancelled' => 'badge-danger',
+                    default => 'badge-primary'
+                };
+                ?>
+                <span class="badge <?= $statusClass ?>" style="font-size: 0.875rem; padding: var(--space-2) var(--space-3);"><?= ucfirst($order['status']) ?></span>
+            </div>
 
-                    <hr>
+            <p class="body-text" style="margin-bottom: var(--space-6);">
+                <span style="color: var(--muted-foreground);">Order Date:</span>
+                <strong><?= date('F j, Y g:i A', strtotime($order['created_at'])) ?></strong>
+            </p>
 
-                    <h6>Items Ordered:</h6>
+            <div style="border-top: 1px solid var(--border); padding-top: var(--space-6);">
+                <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; margin-bottom: var(--space-4);">Items Ordered</h3>
+
+                <div class="table-container">
                     <table class="table">
                         <thead>
                             <tr>
@@ -42,11 +45,11 @@
                             <?php foreach ($orderItems as $item): ?>
                                 <tr>
                                     <td>
-                                        <div class="d-flex align-items-center">
+                                        <div style="display: flex; align-items: center; gap: var(--space-3);">
                                             <?php if (!empty($item['img'])): ?>
-                                                <img src="<?= cloudinary_thumbnail($item['img']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="width: 40px; height: 40px; object-fit: contain;" class="me-2">
+                                                <img src="<?= cloudinary_thumbnail($item['img']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="width: 40px; height: 40px; object-fit: contain; border-radius: var(--radius-sm);">
                                             <?php endif; ?>
-                                            <a href="/products/<?= $item['product_id'] ?>"><?= htmlspecialchars($item['name']) ?></a>
+                                            <a href="/products/<?= $item['product_id'] ?>" style="color: var(--foreground); text-decoration: none; font-weight: 500;"><?= htmlspecialchars($item['name']) ?></a>
                                         </div>
                                     </td>
                                     <td><?= $item['quantity'] ?></td>
@@ -57,18 +60,18 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="3" class="text-end"><strong>Total:</strong></td>
-                                <td><strong>$<?= number_format($order['total_price'], 2) ?></strong></td>
+                                <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+                                <td><strong style="font-size: 1.125rem; color: var(--accent);">$<?= number_format($order['total_price'], 2) ?></strong></td>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
             </div>
+        </div>
 
-            <div class="mt-4">
-                <a href="/orders" class="btn btn-outline-secondary">Back to Orders</a>
-                <a href="/products" class="btn btn-primary">Continue Shopping</a>
-            </div>
+        <div style="display: flex; gap: var(--space-3); margin-top: var(--space-6); flex-wrap: wrap;">
+            <a href="/orders" class="btn btn-outline">Back to Orders</a>
+            <a href="/products" class="btn btn-primary">Continue Shopping</a>
         </div>
     </div>
 </main>
