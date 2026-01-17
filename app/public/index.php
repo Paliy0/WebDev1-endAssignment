@@ -11,7 +11,6 @@ session_start();
 require_once(__DIR__ . "/lib/Route.php");
 
 require_once(__DIR__ . "/routes/index.php");
-require_once(__DIR__ . "/routes/user.php");
 require_once(__DIR__ . "/routes/auth.php");
 require_once(__DIR__ . "/routes/product.php");
 require_once(__DIR__ . "/routes/shop.php");
