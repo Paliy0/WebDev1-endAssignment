@@ -1,27 +1,30 @@
 <main class="main">
-<section class="hero">
-    <div class="container">
-        <div class="hero-grid">
-            <div class="hero-content">
-                <p class="overline">Welcome to Curated</p>
-                <h1 class="heading-hero">
-                    Discover products<br>
-                    <em>you'll love</em>
-                </h1>
-                <p class="body-text hero-description">
-                    Explore curated collections from independent shops. Quality goods, unique finds, delivered to your door.
-                </p>
-                <div class="hero-buttons">
-                    <a href="/products" class="btn btn-primary btn-lg">
-                        Explore Collection
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                    </a>
-                    <a href="/shops" class="btn btn-outline btn-lg">View Shops</a>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <p class="overline">Welcome to PHP Shop</p>
+                    <h1 class="heading-hero">
+                        Discover products<br>
+                        <em>you'll love</em>
+                    </h1>
+                    <p class="body-text hero-description">
+                        Explore PHP Shop collections from independent shops. Quality goods, unique finds, delivered to your door.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="/products" class="btn btn-primary btn-lg">
+                            Explore Collection
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
+                            </svg>
+                        </a>
+                        <a href="/shops" class="btn btn-outline btn-lg">View Shops</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 </main>
 
 <section class="section" style="padding-top: 0; padding-bottom: var(--space-16);">
@@ -146,7 +149,10 @@
                     </div>
                     <a href="/register" class="btn" style="background: var(--background); color: var(--foreground);">
                         Get Started
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                        </svg>
                     </a>
                 </div>
             </div>
@@ -158,7 +164,10 @@
                     </div>
                     <a href="/register" class="btn btn-primary">
                         Sign Up Now
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                        </svg>
                     </a>
                 </div>
             </div>
