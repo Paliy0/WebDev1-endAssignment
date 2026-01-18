@@ -15,7 +15,7 @@
 
         <?php if (isset($_SESSION['error'])): ?>
             <div class="alert alert-error" style="margin-bottom: var(--space-6);">
-                <?= $_SESSION['error']; ?>
+                <?= htmlspecialchars($_SESSION['error']); ?>
                 <?php unset($_SESSION['error']); ?>
             </div>
         <?php endif; ?>
