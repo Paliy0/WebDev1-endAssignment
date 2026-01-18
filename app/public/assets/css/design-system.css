@@ -54,7 +54,6 @@
   --font-sans:
     "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-mono: "Geist Mono", "Fira Code", "Consolas", monospace;
 
   /* Spacing (8px base) */
   --space-1: 4px;
