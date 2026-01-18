@@ -3,8 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
-use PDO;
-use PDOException;
 
 class AuthController
 {

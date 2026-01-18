@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\ProductModel;
-use App\Models\ShopModel;
 use App\Controllers\AuthController;
 
 use Cloudinary\Api\Upload\UploadApi;
@@ -11,13 +10,11 @@ use Cloudinary\Api\Upload\UploadApi;
 class ProductController
 {
     private $productModel;
-    private $shopModel;
     private $authController;
 
     public function __construct()
     {
-        $this->productModel = new \App\Models\ProductModel();
-        $this->shopModel = new \App\Models\ShopModel();
+        $this->productModel = new ProductModel();
         $this->authController = new AuthController();
     }
 

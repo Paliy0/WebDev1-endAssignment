@@ -10,7 +10,7 @@ class UserController
 
     public function __construct()
     {
-        $this->userModel = new \App\Models\UserModel();
+        $this->userModel = new UserModel();
     }
 
     public function getAll()
