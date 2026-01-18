@@ -1,84 +1,49 @@
-# PHP Web Development Boilerplate
+# PHP Shop - E-Commerce Marketplace
 
-## About
+## Description
 
-This repo contains some starter code for new PHP projects.
+A e-commerce marketplace where customers can browse and purchase products from various shops. Business users can create shops and manage their product catalog. Admins manage users and shops.
 
-What's included:
+## Functionalities
 
-- Docker setup including:
-  - PHP interpreter
-  - NGINX server
-  - MySQL (MariaDB) database
-  - PHP MyAdmin
-- A directory structure organized around the MVC pattern
-- A locally included routing utility: [https://github.com/steampixel/simplePHPRouter](https://github.com/steampixel/simplePHPRouter)
-- Bootstrap JS and CSS included in the header: [https://getbootstrap.com/](https://getbootstrap.com/)
+- **User authentication**: Register, login, logout with role-based access (customer/business/admin)
+- **Product browsing**: Search, filter, view product details
+- **Shopping cart**: Add/remove items, checkout process
+- **Order management**: View order history
+- **Shop management**: Business users create/edit shops and products
+- **Admin panel**: Manage users and shops
+- **Image uploads**: Cloudinary integration for product/shop images
 
-## Usage
+## Installation
 
-- Start local
+1. Clone the repository
+2. Navigate to `lib/env.php` and configure (optional):
+   - Database credentials (preconfigured)
+   - Cloudinary credentials for image uploads (needed for displaying images)
 
-In a terminal, from the cloned/forked/download project folder, run:
+3. Run `docker compose up`
+4. Navigate to `http://localhost:8080` and log in with your credentials
+5. Import phpshop.sql file
+6. Navigate to `http://localhost` you should be able to log in or register
 
-```bash
-docker compose up
-```
+## Credentials
 
-NGINX will now serve files in the app/public folder. Visit localhost in your browser to check.
-PHPMyAdmin is accessible on localhost:8080
+Demo Accounts (all use password: password123)
 
-If you want to stop the containers, press Ctrl+C.
+- Admin: admin@phpshop.com
+- Business: seller@phpshop.com
+- Customer: customer@phpshop.com
 
-Or run:
+## WCAG Compliance
 
-```bash
-docker compose down
-```
+- Semantic HTML: `<header>`, `<nav>`, `<main>`, `<footer>` structure
+- Form labels with `for` attribute linked to inputs
+- Alt text on all images using product/shop names
+- Keyboard navigation support (Escape to close menus)
+- Color contrast: `#2C2922` text on `#F7F5F2` background
 
-## Important files and directories
+## GDPR Compliance
 
-_The directory that contains all relevant back end code is in the `app/public` directory. Files and directories listed below are relative to that folder._
-
-- `index.php` - this it the starting point of the application. Any URL requested that is not a direct link (i.e. to a CSS file, image asset, etc.) is is handled by this file. This file handles setup and loading the application routes. This is the starting point for any request.
-- `/routes` - this directory contains files which create route handlers. A route handler handles a specific URL route, i.e. [http://localhost/users](http://localhost/users), [http://localhost/user/1](http://localhost/user/1), etc. Typically a route handler will call a controller method to perform business logic and get data from the data (Model) layer.
-- `/controllers` - controllers should contain the logic of your application. They are also responsible for getting data from the model layer, performing logic and preparing data to be presented to the view layer.
-- `models` - models handle database CRUD operations.
-  - `models/BaseModel.php` - contains a base class for other models. Currently, the base class handles retrieving the database credentials from global `$_ENV` variables and creating a new PDO instance.
-  - `models/UserModel.php` - example model with dummy data for retrieving all users and a single user. This class contains commented out code to demonstrate use of the base model's PDO instance.
-- `view` - views handle the display layer of the application. They should not contain logic or direct database/model access.
-  - `view/pages` - organizing your front end code is important. This directory is for page-level templates.
-  - `view/partials` - you should break up your front end to small, modular pieces so they can be organized and reused. These small, reusable pieces of front the front end should be saved here.
-- `assets` - the assets directory should contain all the static public assets including CSS and JS files, images and other media.
-- `lib` - the lib directory contains reused modules and utility files.
-  - `lib/env.php` - defines global environment variables accessible throughout the application.
-  - `lib/error_reporting.php` - contains a small bit of startup code to enable error messages in the local environment.
-  - `lib/Route.php` - includes a routing utility class.
-
-## Good patterns
-
-For most layers of the application, it is a good idea to have a single file per entity type. I.e., currently there is a `routes/user.php` to handle user routes. If you add routes for products, adding it to `routes/product.php` would be a good idea. Similarly, there is a single file and class for the user controller and user model. New entities should generally get their own route, controller and model files.
-
-## Access site
-
-You can find the project running in http://localhost:80
-
-If you want to access the phpmyadmin panel, instead visit
-http://localhost:8080
-
-# Project Structure
-
-project-root/
-├── app/
-│ ├── public/
-│ │ ├── assets/
-│ │ ├── controllers/
-│ │ ├── models/
-│ │ ├── lib/
-│ │ ├── routes/
-│ │ ├── views/
-│ └── index.php
-├── .gitignore
-├── PHP.Dockerfile
-├── docker-compose.yml
-└── README.md
+- Password hashing with bcrypt
+- Prepared statements prevent data leaks
+- Session-based cart (no persistent data)
