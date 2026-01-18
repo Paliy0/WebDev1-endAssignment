@@ -37,61 +37,25 @@
             <a href="/products" class="btn btn-outline btn-sm">View All</a>
         </div>
         <div class="product-grid">
-            <div class="product-card">
-                <div class="product-image-container">
-                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop" alt="Wireless Headphones" class="product-image">
-                    <div class="quick-add-overlay">
-                        <a href="/products" class="btn btn-primary btn-sm btn-full">View Products</a>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <p class="product-shop">Electronics</p>
-                    <h3 class="product-name">Wireless Headphones</h3>
-                    <p class="product-price">$149.99</p>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image-container">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop" alt="Smart Watch" class="product-image">
-                    <div class="quick-add-overlay">
-                        <a href="/products" class="btn btn-primary btn-sm btn-full">View Products</a>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <p class="product-shop">Tech Accessories</p>
-                    <h3 class="product-name">Smart Watch Pro</h3>
-                    <p class="product-price">$299.99</p>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image-container">
-                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop" alt="Running Shoes" class="product-image">
-                    <div class="quick-add-overlay">
-                        <a href="/products" class="btn btn-primary btn-sm btn-full">View Products</a>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <p class="product-shop">Sports & Fitness</p>
-                    <h3 class="product-name">Running Shoes</h3>
-                    <p class="product-price">$129.99</p>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image-container">
-                    <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=400&fit=crop" alt="Organic Skincare Set" class="product-image">
-                    <div class="quick-add-overlay">
-                        <a href="/products" class="btn btn-primary btn-sm btn-full">View Products</a>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <p class="product-shop">Beauty & Care</p>
-                    <h3 class="product-name">Organic Skincare Set</h3>
-                    <p class="product-price">$89.99</p>
-                </div>
-            </div>
+            <?php if (empty($featuredProducts)): ?>
+                <p class="body-text" style="grid-column: 1 / -1; text-align: center; color: var(--muted-foreground);">No products available yet.</p>
+            <?php else: ?>
+                <?php foreach ($featuredProducts as $product): ?>
+                    <a href="/products/<?= htmlspecialchars($product['product_id']) ?>" class="product-card">
+                        <div class="product-image-container">
+                            <img src="<?= !empty($product['img']) ? htmlspecialchars($product['img']) : 'https://placehold.co/400x400?text=No+Image' ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
+                            <div class="quick-add-overlay">
+                                <span class="btn btn-primary btn-sm btn-full">View Product</span>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <p class="product-shop"><?= htmlspecialchars($product['shop_name'] ?? 'Shop') ?></p>
+                            <h3 class="product-name"><?= htmlspecialchars($product['name']) ?></h3>
+                            <p class="product-price">$<?= number_format($product['price'], 2) ?></p>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
 </section>
@@ -106,34 +70,19 @@
             <a href="/shops" class="btn btn-outline btn-sm">View All</a>
         </div>
         <div class="shop-grid">
-            <a href="/shops" class="shop-card">
-                <div class="shop-avatar">
-                    <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=100&h=100&fit=crop" alt="TechStore">
-                </div>
-                <h3 class="shop-name">TechStore</h3>
-                <p class="shop-products-count">Electronics & Gadgets</p>
-            </a>
-            <a href="/shops" class="shop-card">
-                <div class="shop-avatar">
-                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=100&h=100&fit=crop" alt="SportStyle">
-                </div>
-                <h3 class="shop-name">SportStyle</h3>
-                <p class="shop-products-count">Sports & Fitness</p>
-            </a>
-            <a href="/shops" class="shop-card">
-                <div class="shop-avatar">
-                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=100&h=100&fit=crop" alt="Glow Naturals">
-                </div>
-                <h3 class="shop-name">Glow Naturals</h3>
-                <p class="shop-products-count">Beauty & Skincare</p>
-            </a>
-            <a href="/shops" class="shop-card">
-                <div class="shop-avatar">
-                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?w=100&h=100&fit=crop" alt="Home Essentials">
-                </div>
-                <h3 class="shop-name">Home Essentials</h3>
-                <p class="shop-products-count">Home & Living</p>
-            </a>
+            <?php if (empty($topShops)): ?>
+                <p class="body-text" style="grid-column: 1 / -1; text-align: center; color: var(--muted-foreground);">No shops available yet.</p>
+            <?php else: ?>
+                <?php foreach ($topShops as $shop): ?>
+                    <a href="/shops/<?= htmlspecialchars($shop['shop_id']) ?>" class="shop-card">
+                        <div class="shop-avatar">
+                            <img src="<?= !empty($shop['img']) ? htmlspecialchars($shop['img']) : 'https://placehold.co/100x100?text=' . urlencode(substr($shop['name'], 0, 1)) ?>" alt="<?= htmlspecialchars($shop['name']) ?>">
+                        </div>
+                        <h3 class="shop-name"><?= htmlspecialchars($shop['name']) ?></h3>
+                        <p class="shop-products-count"><?= htmlspecialchars($shop['description'] ?? '') ?></p>
+                    </a>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
 </section>
