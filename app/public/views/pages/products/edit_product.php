@@ -15,13 +15,13 @@
 
         <?php if (isset($_SESSION['error'])): ?>
             <div class="alert alert-error" style="margin-bottom: var(--space-6);">
-                <?= $_SESSION['error']; ?>
+                <?= htmlspecialchars($_SESSION['error']); ?>
                 <?php unset($_SESSION['error']); ?>
             </div>
         <?php endif; ?>
 
         <div class="cta-card">
-            <form action="/products/<?= $product['id'] ?>/edit" method="post" enctype="multipart/form-data">
+            <form action="/products/<?= $product['product_id'] ?>/edit" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="shop_id" value="<?= $product['shop_id'] ?>">
 
                 <div class="form-group">
