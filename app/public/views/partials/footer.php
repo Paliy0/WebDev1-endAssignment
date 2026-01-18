@@ -6,7 +6,7 @@
             <div class="footer-brand">
                 <a href="/" class="logo">PHP Shop</a>
                 <p class="footer-brand-text">
-                    Your one-stop shop for unique products from independent sellers. Quality goods, exceptional finds, delivered with care.
+                    Your one-stop shop for unique products from independent sellers.
                 </p>
                 <div class="footer-social">
                     <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="icon-button" aria-label="Facebook">
